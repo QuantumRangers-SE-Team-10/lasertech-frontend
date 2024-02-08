@@ -12,3 +12,5 @@ npm run dev
 ```
 
 Go to http://localhost:5173/ to see the project running.
+
+To start coding, clone the repository and create a new branch with the name of the feature you are working on.
