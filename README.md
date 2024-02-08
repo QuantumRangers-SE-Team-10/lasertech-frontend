@@ -10,3 +10,5 @@ Commands to run the project:
 npm install
 npm run dev
 ```
+
+Go to http://localhost:5173/ to see the project running.
