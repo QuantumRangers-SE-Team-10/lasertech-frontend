@@ -6,11 +6,30 @@ import TestAPI from '../pages/testAPI';
 import './onboarding.css';
 
 const Onboarding = () => {
-  const [players, setPlayers] = useState(Array.from(Array(20).keys()).map(() => ({ codename: '', idNumber: '' })));
+  const [redTeamPlayers, setRedTeamPlayers] = useState(Array.from(Array(20).keys()).map(() => ({ codename: '', idNumber: '' })));
+  const [greenTeamPlayers, setGreenTeamPlayers] = useState(Array.from(Array(20).keys()).map(() => ({ codename: '', idNumber: '' })));
 
-  const handleCheckboxChange = (index) => {
-    // Submit player's information when checkbox is clicked
-    console.log("Submitted player:", players[index]);
+  const handleRedTeamChange = (index, field, value) => {
+    const updatedRedTeamPlayers = [...redTeamPlayers];
+    updatedRedTeamPlayers[index][field] = value;
+    setRedTeamPlayers(updatedRedTeamPlayers);
+  };
+
+  const handleGreenTeamChange = (index, field, value) => {
+    const updatedGreenTeamPlayers = [...greenTeamPlayers];
+    updatedGreenTeamPlayers[index][field] = value;
+    setGreenTeamPlayers(updatedGreenTeamPlayers);
+  };
+
+  const handleClearGame = () => {
+    setRedTeamPlayers(Array.from(Array(20).keys()).map(() => ({ codename: '', idNumber: '' })));
+    setGreenTeamPlayers(Array.from(Array(20).keys()).map(() => ({ codename: '', idNumber: '' })));
+  }
+
+  const handleSubmit = () => {
+    console.log("Red Team Players:", redTeamPlayers);
+    console.log("Green Team Players:", greenTeamPlayers);
+    // Handle submission logic here
   };
 
   return (
@@ -21,73 +40,52 @@ const Onboarding = () => {
       <div className="window-content">
         <div className="columns">
           <div className="column">
-            <h3>Red Team</h3>
-            {players.map((player, index) => (
+            <h3 style={{ color: 'red' }}>Red Team</h3>
+            {redTeamPlayers.map((player, index) => (
               <div key={index}>
-                {index} <input
-                  type="checkbox"
-                  id={`red-team-${index}`}
-                  name={`red-team-${index}`}
-                  onChange={() => handleCheckboxChange(index)}
-                />
-                <label htmlFor={`red-team-${index}`}></label>
-                <input
-                  type="text"
-                  id={`codename-${index}`}
-                  name={`codename-${index}`}
-                  value={player.codename}
-                  onChange={(e) => setPlayers(players => {
-                    const updatedPlayers = [...players];
-                    updatedPlayers[index].codename = e.target.value;
-                    return updatedPlayers;
-                  })}
-                  placeholder="Codename"
-                />
                 <input
                   type="number"
-                  id={`idNumber-${index}`}
-                  name={`idNumber-${index}`}
                   value={player.idNumber}
-                  onChange={(e) => setPlayers(players => {
-                    const updatedPlayers = [...players];
-                    updatedPlayers[index].idNumber = e.target.value;
-                    return updatedPlayers;
-                  })}
+                  onChange={(e) => handleRedTeamChange(index, 'idNumber', e.target.value)}
                   placeholder="ID Number"
+                />
+                <input
+                  type="text"
+                  value={player.codename}
+                  onChange={(e) => handleRedTeamChange(index, 'codename', e.target.value)}
+                  placeholder="Codename"
                 />
               </div>
             ))}
           </div>
           <div className="column">
-            <h3>Green Team</h3>
-            {players.map((player, index) => (
+            <h3 style={{ color: 'green' }}>Green Team</h3>
+            {greenTeamPlayers.map((player, index) => (
               <div key={index}>
-                {index} <input
-                  type="checkbox"
-                  id={`green-team-${index}`}
-                  name={`green-team-${index}`}
-                  onChange={() => handleCheckboxChange(index)}
+                <input
+                  type="number"
+                  value={player.idNumber}
+                  onChange={(e) => handleGreenTeamChange(index, 'idNumber', e.target.value)}
+                  placeholder="ID Number"
                 />
-                <label htmlFor={`green-team-${index}`}></label>
+                <input
+                  type="text"
+                  value={player.codename}
+                  onChange={(e) => handleGreenTeamChange(index, 'codename', e.target.value)}
+                  placeholder="Codename"
+                />
               </div>
             ))}
           </div>
         </div>
       </div>
       <div className="hotkeys">
-        <button onClick={() => console.log("Edit Game")}>Edit Game</button>
-        <button onClick={() => console.log("Game Parameters")}>Game Parameters</button>
+        <button onClick={handleSubmit}>Submit</button>
         <button onClick={() => console.log("Start Game")}>Start Game</button>
-        <button onClick={() => console.log("Preentered Games")}>Preentered Games</button>
-        <button onClick={() => console.log("Clear Game")}>Clear Game</button>
+        <button onClick={handleClearGame}>Clear Game</button>
       </div>
     </div>
   );
 };
 
-ReactDOM.render(
-  <React.StrictMode>
-    <Onboarding />
-  </React.StrictMode>,
-  document.getElementById('root')
-);
+export default Onboarding;
