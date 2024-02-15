@@ -1,7 +1,7 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom"; // Link
 import DefaultSplashPage from '../pages/DefaultSplashPage';
 import TestAPI from '../pages/testAPI';
-import Onboarding from './onboarding';
+import Onboarding from '../pages/onboarding';
 
 import './App.css'
 
