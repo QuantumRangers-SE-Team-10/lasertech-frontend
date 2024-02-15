@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
 import ReactDOM from 'react-dom/client';
-import App from './App.css';
-import './index.css';
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+//import App from './App.css';
+import TestAPI from '../pages/testAPI';
+import './onboarding.css';
 
 const Onboarding = () => {
   const [players, setPlayers] = useState(Array.from(Array(20).keys()).map(() => ({ codename: '', idNumber: '' })));
