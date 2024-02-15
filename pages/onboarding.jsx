@@ -1,4 +1,6 @@
 import { useState } from 'react';
+import { addPlayer } from '../api/player';
+
 import '/src/css/onboarding.css';
 
 const Onboarding = () => {
@@ -22,10 +24,17 @@ const Onboarding = () => {
     setGreenTeamPlayers(Array.from(Array(20).keys()).map(() => ({ codename: '', idNumber: '' })));
   }
 
-  const handleSubmit = () => {
-    console.log("Red Team Players:", redTeamPlayers);
-    console.log("Green Team Players:", greenTeamPlayers);
-    // Handle submission logic here
+  const handleSubmit = async () => {
+    const players = [...redTeamPlayers, ...greenTeamPlayers];
+
+    const filteredPlayers = players
+      .filter((player) => player.idNumber !== '' && player.codename !== '');
+    
+    filteredPlayers.forEach(async (player) => {
+      await addPlayer(player.idNumber, player.codename);
+    });
+
+    console.log(filteredPlayers);
   };
 
   return (

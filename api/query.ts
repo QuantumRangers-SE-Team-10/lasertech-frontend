@@ -1,4 +1,4 @@
-import axios, { AxiosRequestConfig, RawAxiosRequestConfig } from 'axios';
+import axios from 'axios';
 
 const query = async (route: string, httpMethod: string, id: Number | null, params: any) => {
   const baseUrl = 'http://127.0.0.1:5243/api/';
@@ -6,15 +6,15 @@ const query = async (route: string, httpMethod: string, id: Number | null, param
     Accept: 'application/json',
   };
 
-  const queryUrl = `${baseUrl}${route}/`;
+  let queryUrl = `${baseUrl}${route}`;
 
-  queryUrl.concat(id ? `/${id}` : '');
+  queryUrl = queryUrl.concat(id != null ? `/${id}` : '');
 
-  if (params.length > 0) {
-    const queryString = params.keys()
-      .map((key: string) => { `${key}=${params[key]}` })
+  if (params.length > 0 || true) {
+    const queryString = Object.keys(params)
+      .map((key: string) => { return `${key}=${params[key]}`; })
       .join('&');
-    queryUrl.concat(`?${queryString}`);
+    queryUrl = queryUrl.concat(`?${queryString}`);
   }
 
   let response: any;
