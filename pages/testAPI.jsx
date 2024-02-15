@@ -1,12 +1,12 @@
 import { useEffect, useState } from 'react';
-import getPlayers from '../api/player'
+import { getAllPlayers } from '../api/player'
 
 function TestAPI() {
   const [players, setValue] = useState('');
 
   useEffect(() => {
     async function getValue() {
-      const response = await getPlayers();
+      const response = await getAllPlayers();
       setValue(response);
     }
     
@@ -20,7 +20,7 @@ function TestAPI() {
   let player1Codename = '';
 
   if (players != '') {
-    player1Codename = players.data[0].codename;
+    player1Codename = players.data[0]?.codename;
   }
 
   return (
