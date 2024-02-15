@@ -1,5 +1,5 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom"; // Link
-import DefaultSplashPage from '../pages/DefaultSplashPage';
+import Splash from '../pages/Splash';
 import TestAPI from '../pages/testAPI';
 
 import './App.css'
@@ -9,7 +9,7 @@ function App() {
     <>
       <Router>
         <Routes>
-          <Route path="/" element={<DefaultSplashPage />} />
+          <Route path="/" element={<Splash />} />
           <Route path="/testAPI" element={<TestAPI />} />
           {/* Add routes to pages here */}
         </Routes>

@@ -2,9 +2,9 @@ import gameLogo from '../src/assets/logo.jpg'
 import React, { useState, useRef, useEffect } from "react";
 import '../src/css/Splash.css'
 
-export default DefaultSplashPage;
+export default Splash;
 
-function DefaultSplashPage() {
+function Splash() {
 
   let timeLeft = 3;
   setInterval(() => {
