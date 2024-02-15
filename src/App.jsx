@@ -12,7 +12,7 @@ function App() {
         <Routes>
           <Route path="/" element={<DefaultSplashPage />} />
           <Route path="/testAPI" element={<TestAPI />} />
-          <Route path ="/onboarding" element = {<Onboarding />} />
+          <Route path="/onboarding" element={<Onboarding />} />
           {/* Add routes to pages here */}
         </Routes>
       </Router>
