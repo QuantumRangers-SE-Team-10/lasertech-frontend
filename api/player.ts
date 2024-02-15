@@ -12,7 +12,7 @@ const getAllPlayers = async () => {
 
 const addPlayer = async (playerId: Number, codename: String) => {
   const queryParams = {
-    // playerId: playerId,
+    playerID: playerId,
     codename: codename,
   };
   return await query(route, 'post', null, queryParams);
