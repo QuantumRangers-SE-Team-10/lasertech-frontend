@@ -7,12 +7,20 @@ const Onboarding = () => {
 
   const handleRedTeamChange = (index, field, value) => {
     const updatedRedTeamPlayers = [...redTeamPlayers];
+    if(field === 'idNumber' && value !== '' && !/^\d*$/.test(value)) {
+      console.log("Invalid ID Number");
+      return;
+    }
     updatedRedTeamPlayers[index][field] = value;
     setRedTeamPlayers(updatedRedTeamPlayers);
   };
 
   const handleGreenTeamChange = (index, field, value) => {
     const updatedGreenTeamPlayers = [...greenTeamPlayers];
+    if(field === 'idNumber' && value !== '' && !/^\d*$/.test(value)) {
+      console.log("Invalid ID Number");
+      return;
+    }
     updatedGreenTeamPlayers[index][field] = value;
     setGreenTeamPlayers(updatedGreenTeamPlayers);
   };
