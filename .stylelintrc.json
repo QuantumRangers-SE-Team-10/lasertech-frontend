@@ -2,9 +2,14 @@
   "extends": [
     "stylelint-config-standard"
   ],
-  "reportNeedlessDisables": true,
   "rules": {
-    "block-no-empty": true,
-    "unit-allowed-list": ["em", "rem", "s", "px"]
+    "selector-class-pattern": [
+      "^([a-z][a-z0-9]*)(-[a-z0-9]+)*$",
+      {
+        "resolveNestedSelectors": true
+      }
+    ],
+    "property-no-vendor-prefix": null,
+    "at-rule-no-vendor-prefix": null
   }
 }
