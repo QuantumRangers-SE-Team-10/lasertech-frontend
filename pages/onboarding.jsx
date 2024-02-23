@@ -170,7 +170,21 @@ const Onboarding = () => {
                 <input
                 type="text"
                 value={player.equipmentId}
-                onChange={(e) => setEquipmentID(index, e.target.value, 'Red')}
+                onChange={(e) => {
+                  const newValue = e.target.value;
+                  const equipmentIdValue = parseInt(newValue);
+                  if (isNaN(equipmentIdValue)) {
+                  setEquipmentId(newValue);
+                  return;
+                  }
+                  setEquipmentId(newValue);
+                  setTimeout(() => {
+                  if (selectedTeam === 'Red' && equipmentIdValue % 2 === 0) {
+                    console.log(`Invalid Equipment ID for Green Team`);
+                    setEquipmentId('');
+                    }
+                  }, 1000);
+                  }}
                 placeholder="Equipment ID"
                 />
               </div>
