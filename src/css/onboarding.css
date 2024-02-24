@@ -1,53 +1,85 @@
 .window {
-    width: 100%;
-    padding: 20px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    background-color: #f9f9f9;
-    margin-bottom: 20px;
-  }
+  width: 100%;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  background-color: #f9f9f9;
+  margin-bottom: 20px;
+}
+
+.window-header {
+  padding-bottom: 10px;
+  border-bottom: 1px solid #ccc;
+  margin-bottom: 10px;
+}
+
+.window-header h2 {
+  margin: 0;
+}
+
+.window-content {
+  margin-bottom: 20px;
+}
+
+.columns {
+  display: flex;
+  flex-direction: row; /* Ensure columns are aligned horizontally */
+}
+
+.column {
+  flex: 1;
+  padding: 0 10px;
+}
+
+.column h3 {
+  margin-top: 0;
+}
+
+.hotkeys {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+}
+
+/* Adjustments for input fields and labels */
+input[type="checkbox"],
+input[type="text"],
+input[type="number"] {
+  margin-bottom: 5px;
+}
+
+.player-input {
+  display: flex;
+  justify-content:center;
+  align-items: center;
+ /* flex-direction: column; /* Change to column direction */
+ /* align-items: flex-start; /* Align items to the start */
+  margin-bottom: 10px;
+  margin-right: 50px;
+}
+
+
+.player-input input[type="text"] {
+  margin-bottom: 5px;
+  margin-left: -20px;
+}
+
+.magnify-icon {
+  cursor: pointer;
   
-  .window-header {
-    padding-bottom: 10px;
-    border-bottom: 1px solid #ccc;
-    margin-bottom: 10px;
-  }
-  
-  .window-header h2 {
-    margin: 0;
-  }
-  
-  .window-content {
-    margin-bottom: 20px;
-  }
-  
-  .columns {
-    display: flex;
-  }
-  
-  .column {
-    flex: 1;
-    padding: 0 10px;
-  }
-  
-  .column h3 {
-    margin-top: 0;
-  }
-  
-  .hotkeys {
-    display: flex;
-    justify-content: center;
-    gap: 10px;
-  }
-  
-  /* Adjustments for input fields and labels */
-  input[type="checkbox"],
-  input[type="text"],
-  input[type="number"] {
-    margin-right: 5px;
-    margin-bottom: 5px;
-  }
-  
-  label {
-    margin-right: 5px;
-  }
+}
+
+.magnifying-glass-icon {
+  width: 20px;
+  height: 20px;
+}
+
+.add-button-container {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+}
+
+label {
+  margin-right: 5px;
+}
