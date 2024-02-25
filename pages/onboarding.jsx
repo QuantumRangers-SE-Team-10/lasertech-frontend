@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { addPlayer } from '../api/player';
+import { addPlayer, getPlayer } from '../api/player';
 
 import '/src/css/onboarding.css';
 
@@ -14,8 +14,8 @@ const Onboarding = () => {
   const [equipmentId, setEquipmentId] = useState('');
   const [isValid, setIsValid] = useState(true);
   const [showCodeName, setShowCodeName] = useState(false);
-  const [fetchedCodename, setFetchedCodename] = useState('');
-
+  const [isAddButtonDisabled, setAddButtonDisabled] = useState(false);
+  // const [fetchedCodename, setFetchedCodename] = useState('');
 
   const handleEquipmentIdChange = (e, team, index) => {
     const value = e.target.value;
@@ -30,20 +30,23 @@ const Onboarding = () => {
 
   const fetchCodename = async (playerID) => {
     try {
-      const response = await fetch(`/api/player/${playerID}`);
-      const data = await response.json();
-      if (data.codename) {
-        setFetchedCodename(data.codename);
+      const player = await getPlayer(playerID);
+      if (player.codename) {
+        // setFetchedCodename(player.codename);
+        setCodename(player.codename);
         setShowCodeName(true);
       } else {
+        // setFetchedCodename('');
         setCodename('');
         setShowCodeName(true);
       }
     } catch (error) {
       console.error('Error fetching codename:', error);
       setShowCodeName(true); // Show the input field for manual entry
-      //setCodename(''); // Reset codename state
+      // setCodename(''); // Reset codename state
     }
+    console.log("Codename: ", playerID);
+    setAddButtonDisabled(false);
   };
 
   const getBorderColor = (player) => {
@@ -73,11 +76,13 @@ const Onboarding = () => {
 
   const handleAddToRedTeam = () => {
     setSelectedTeam('Red');
+    setShowCodeName(false)
     handleSubmitPlayer();
   };
 
   const handleAddToGreenTeam = () => {
     setSelectedTeam('Green');
+    setShowCodeName(false)
     handleSubmitPlayer();
   };
 
@@ -118,6 +123,7 @@ const Onboarding = () => {
 
 
   const handleSubmitPlayer = async () => {
+    setAddButtonDisabled(true);
     if (!playerID || !codename) {
       console.log("Invalid player");
       return;
@@ -202,30 +208,30 @@ const Onboarding = () => {
             value={playerID}
             onChange={(e) => {
               setPlayerID(e.target.value);
-              setShowCodeName(false);
+              setAddButtonDisabled(true);
+              // setShowCodeName(false);
             }}
             placeholder="Player ID"
           />
           <span className="magnify-icon" onClick={() => {
-          fetchCodename(playerID);
-          setShowCodeName(!showCodeName)}}>
-            <img src="../src/assets/magnifying_glass_icon.png" alt="Search" className="magnifying-glass-icon" />
+          fetchCodename(playerID);}}>
+            <img src="../src/assets/magnifying_glass_icon.png" alt="Search" className="magnifying-glass-icon"/>
           </span>
         </div>
         {playerID && showCodeName && (
           <div className="player-input">
             <input
               type="text"
-              value={showCodeName && fetchedCodename !== '' ? fetchedCodename : codename}
-              readOnly={showCodeName && fetchedCodename !== ''}
+              value={codename}
+              // readOnly={showCodeName && codename !== ''}
               onChange={(e) => setCodename(e.target.value)}
               placeholder="Enter Codename"
             />
           </div>
         )}
           <div className="add-button-container">
-            <button onClick={handleAddToRedTeam}>Add to Red Team</button>
-            <button onClick={handleAddToGreenTeam}>Add to Green Team</button>
+            <button id="add-red-team" onClick={handleAddToRedTeam} disabled={isAddButtonDisabled}>Add to Red Team</button>
+            <button id="add-green-team" onClick={handleAddToGreenTeam} disabled={isAddButtonDisabled}>Add to Green Team</button>
           </div>
         </div>
         <div className="columns">
