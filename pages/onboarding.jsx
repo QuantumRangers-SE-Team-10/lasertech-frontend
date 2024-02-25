@@ -21,12 +21,13 @@ const Onboarding = () => {
   );
   const [selectedTeam, setSelectedTeam] = useState("Red");
   const [codename, setCodename] = useState("");
-  const [redteamindex, setRedTeamIndex] = useState(0);
-  const [greenteamindex, setGreenTeamIndex] = useState(0);
+  const [redTeamIndex, setRedTeamIndex] = useState(0);
+  const [greenTeamIndex, setGreenTeamIndex] = useState(0);
   const [equipmentId, setEquipmentId] = useState("");
-  const [isValid, setIsValid] = useState(true);
+  // const [isValid, setIsValid] = useState(true);
   const [showCodeName, setShowCodeName] = useState(false);
   const [isAddButtonDisabled, setAddButtonDisabled] = useState(true);
+  const [isCodenameInputDisabled, setCodenameInputDisabled] = useState(true);
   // const [fetchedCodename, setFetchedCodename] = useState('');
 
   const handleEquipmentIdChange = (e, team, index) => {
@@ -46,10 +47,12 @@ const Onboarding = () => {
         // setFetchedCodename(player.codename);
         setCodename(player.codename);
         setShowCodeName(true);
+        setCodenameInputDisabled(true);
       } else {
         // setFetchedCodename('');
         setCodename("");
         setShowCodeName(true);
+        setCodenameInputDisabled(false);
       }
     } catch (error) {
       console.error("Error fetching codename:", error);
@@ -156,22 +159,29 @@ const Onboarding = () => {
       console.log("Invalid player");
       return;
     }
+    const playerIds = [...redTeamPlayers, ...greenTeamPlayers]
+      .map((player) => player.playerID);
+    if (playerIds.includes(playerID)) {
+      // TODO: Handle this case
+      console.log("Player ID already exists");
+      return;
+    }
     const newPlayer = { playerID, codename };
     if (selectedTeam === "Red") {
-      if (redteamindex !== -1) {
+      if (redTeamIndex !== -1) {
         const updatedRedTeamPlayers = [...redTeamPlayers];
-        updatedRedTeamPlayers[redteamindex] = newPlayer; // Update existing player
+        updatedRedTeamPlayers[redTeamIndex] = newPlayer; // Update existing player
         setRedTeamPlayers(updatedRedTeamPlayers);
-        setRedTeamIndex(redteamindex + 1);
+        setRedTeamIndex(redTeamIndex + 1);
       } else {
         console.log("Player not found in the Red Team");
       }
     } else if (selectedTeam === "Green") {
-      if (greenteamindex !== -1) {
+      if (greenTeamIndex !== -1) {
         const updatedGreenTeamPlayers = [...greenTeamPlayers];
-        updatedGreenTeamPlayers[greenteamindex] = newPlayer; // Update existing player
+        updatedGreenTeamPlayers[greenTeamIndex] = newPlayer; // Update existing player
         setGreenTeamPlayers(updatedGreenTeamPlayers);
-        setGreenTeamIndex(greenteamindex + 1);
+        setGreenTeamIndex(greenTeamIndex + 1);
       } else {
         console.log("Player not found in the Green Team");
       }
@@ -211,9 +221,9 @@ const Onboarding = () => {
     filteredPlayers.forEach((player) => {
       if (player.equipmentId) {
         if (player.team === "Red") {
-          setEquipmentID(redteamindex, player.equipmentId, "Red");
+          setEquipmentID(redTeamIndex, player.equipmentId, "Red");
         } else if (player.team === "Green") {
-          setEquipmentID(greenteamindex, player.equipmentId, "Green");
+          setEquipmentID(greenTeamIndex, player.equipmentId, "Green");
         }
       }
     });
@@ -262,19 +272,32 @@ const Onboarding = () => {
                 onChange={(e) => setCodename(e.target.value)}
                 placeholder="Enter Codename"
                 style={{
-                  backgroundColor: isAddButtonDisabled ? "#aaa" : "#f9f9f9",
-                  borderColor: isAddButtonDisabled ? "#aaa" : "#f9f9f9",
+                  backgroundColor: isCodenameInputDisabled ? "#aaa" : "#f9f9f9",
+                  borderColor: isCodenameInputDisabled ? "#aaa" : "#f9f9f9",
                 }}
+                disabled={isCodenameInputDisabled}
               />
             </div>
           )}
-          <div className="add-button-container">
+          <div
+            className="add-button-container"
+            style={{
+              display: "grid",
+              grid: "repeat(2, auto) / repeat(12, 1fr)",
+            }}
+          >
+            <span
+              style={{
+                gridColumn: "span 3",
+              }}
+            ></span>
             <button
               id="add-red-team"
               onClick={handleAddToRedTeam}
               disabled={isAddButtonDisabled}
               style={{
                 backgroundColor: isAddButtonDisabled ? "#aaa" : "#f9f9f9",
+                gridColumn: "span 3",
               }}
             >
               Add to Red Team
@@ -285,8 +308,14 @@ const Onboarding = () => {
               disabled={isAddButtonDisabled}
               style={{
                 backgroundColor: isAddButtonDisabled ? "#aaa" : "#f9f9f9",
+                gridColumn: "span 3",
               }}
             >
+              <span
+                style={{
+                  gridColumn: "span 3",
+                }}
+              ></span>
               Add to Green Team
             </button>
           </div>
