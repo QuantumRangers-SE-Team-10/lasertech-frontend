@@ -1,5 +1,7 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { addPlayer, getPlayer } from "../api/player";
+import { addPlayerSession } from "../api/playerSession";
+import { addGame } from "../api/game";
 
 import "/src/css/onboarding.css";
 
@@ -19,7 +21,8 @@ const Onboarding = () => {
       equipmentId: "",
     }))
   );
-  const [selectedTeam, setSelectedTeam] = useState("Red");
+  // const [selectedTeam, setSelectedTeam] = useState("Red");
+  const [game, setGame] = useState();
   const [codename, setCodename] = useState("");
   const [redTeamIndex, setRedTeamIndex] = useState(0);
   const [greenTeamIndex, setGreenTeamIndex] = useState(0);
@@ -28,6 +31,30 @@ const Onboarding = () => {
   const [showCodeName, setShowCodeName] = useState(false);
   const [isAddButtonDisabled, setAddButtonDisabled] = useState(true);
   const [isCodenameInputDisabled, setCodenameInputDisabled] = useState(true);
+
+  // useEffect(async () => {
+  //   const game = await addGame(); // TODO
+  //   console.log(game);
+  //   // const fetchGame = async () => {
+  //   //   try {
+  //   //     const game = await addGame();
+  //   //     console.log("Game ID: ", game.id);
+  //   //   } catch (error) {
+  //   //     console.error("Error fetching game: ", error);
+  //   //   }
+  //   // };
+  //   // fetchGame();
+  // }, []);
+
+  useEffect(() => {
+    async function add_Game() {
+      const game = await addGame();
+      setGame(game);
+    }
+    
+    add_Game();
+  }, []);
+
   // const [fetchedCodename, setFetchedCodename] = useState('');
 
   const handleEquipmentIdChange = (e, team, index) => {
@@ -99,15 +126,15 @@ const Onboarding = () => {
   };
 
   const handleAddToRedTeam = () => {
-    setSelectedTeam("Red");
+    // setSelectedTeam("Red"); 
     setShowCodeName(false);
-    handleSubmitPlayer();
+    handleSubmitPlayer("Red");
   };
 
   const handleAddToGreenTeam = () => {
-    setSelectedTeam("Green");
+    // setSelectedTeam("Green");
     setShowCodeName(false);
-    handleSubmitPlayer();
+    handleSubmitPlayer("Green");
   };
 
   const setEquipmentID = (index, value, team) => {
@@ -153,7 +180,7 @@ const Onboarding = () => {
     setGreenTeamIndex(0);
   };
 
-  const handleSubmitPlayer = async () => {
+  const handleSubmitPlayer = async (team) => {
     setAddButtonDisabled(true);
     if (!playerID || !codename) {
       console.log("Invalid player");
@@ -169,7 +196,8 @@ const Onboarding = () => {
     }
     const newPlayer = { playerID, codename };
     addPlayer(playerID, codename);
-    if (selectedTeam === "Red") {
+    if (team === "Red") {
+      console.log("Red Team");
       if (redTeamIndex !== -1) {
         const updatedRedTeamPlayers = [...redTeamPlayers];
         updatedRedTeamPlayers[redTeamIndex] = newPlayer; // Update existing player
@@ -178,7 +206,7 @@ const Onboarding = () => {
       } else {
         console.log("Player not found in the Red Team");
       }
-    } else if (selectedTeam === "Green") {
+    } else if (team === "Green") {
       if (greenTeamIndex !== -1) {
         const updatedGreenTeamPlayers = [...greenTeamPlayers];
         updatedGreenTeamPlayers[greenTeamIndex] = newPlayer; // Update existing player
@@ -211,26 +239,31 @@ const Onboarding = () => {
 
   const handleSubmit = async () => {
     const players = [...redTeamPlayers, ...greenTeamPlayers];
+    console.log(players);
 
     const filteredPlayers = players.filter(
       (player) => player.playerID !== "" && player.codename !== ""
     );
 
-    filteredPlayers.forEach(async (player) => {
-      await addPlayer(player.playerID, player.codename);
-    });
+    // filteredPlayers.forEach(async (player) => {
+    //   await addPlayer(player.playerID, player.codename);
+    // });
 
-    filteredPlayers.forEach((player) => {
-      if (player.equipmentId) {
-        if (player.team === "Red") {
-          setEquipmentID(redTeamIndex, player.equipmentId, "Red");
-        } else if (player.team === "Green") {
-          setEquipmentID(greenTeamIndex, player.equipmentId, "Green");
-        }
+    filteredPlayers.forEach(async (player) => {
+      if (player.equipmentId && player.codename !== "" && player.playerID !== "") {
+        // if (player.team === "Red") {
+        //   setEquipmentID(redTeamIndex, player.equipmentId, "Red");
+        // } else if (player.team === "Green") {
+        //   setEquipmentID(greenTeamIndex, player.equipmentId, "Green");
+        // }
+        const pS = await addPlayerSession(player.playerID, game.gameID, player.equipmentId, player.team);
+        console.log(pS);
       }
     });
 
-    console.log(filteredPlayers);
+    // console.log(game);
+
+    // console.log(filteredPlayers);
   };
 
   return (
@@ -397,7 +430,7 @@ const Onboarding = () => {
       </div>
       <div className="hotkeys">
         <button onClick={handleSubmit}>Submit</button>
-        <button onClick={() => console.log("Start Game")}>Start Game</button>
+        {/* <button onClick={() => console.log("Start Game")}>Start Game</button> */}
         <button onClick={handleClearGame}>Clear Game</button>
       </div>
     </div>

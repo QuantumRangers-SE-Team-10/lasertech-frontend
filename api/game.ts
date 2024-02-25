@@ -12,15 +12,13 @@ const getAllGames = async () => {
   return await query(route, "get", null, []);
 };
 
-const addGame = async (
-  gameId: Number,
-  playerSessions: [{ playerId: Number; team: String; equipmentId: String }]
-) => {
-  const data = {
-    gameId: gameId,
-    playerSessions: playerSessions,
-  };
-  return await query(route, "post", null, data);
+const addGame = async () => {
+  // const data = {
+  //   gameId: gameId,
+  //   playerSessions: playerSessions,
+  // };
+  const response = await query(route, "post", null, []);
+  return response.data;
 };
 
 const modifyGame = async (
