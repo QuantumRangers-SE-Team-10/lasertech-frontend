@@ -1,14 +1,19 @@
-import axios from 'axios';
+import axios from "axios";
 
-const query = async (route: string, httpMethod: string, id: Number | null, data: any) => {
-  const baseUrl = 'http://127.0.0.1:5243/api/';
+const query = async (
+  route: string,
+  httpMethod: string,
+  id: Number | null,
+  data: any
+) => {
+  const baseUrl = "http://127.0.0.1:5243/api/";
   const requestHeaders = {
-    Accept: 'application/json',
-    'Content-Type': 'application/json',
+    Accept: "application/json",
+    "Content-Type": "application/json",
   };
 
   let queryUrl = `${baseUrl}${route}`;
-  queryUrl = queryUrl.concat(id != null ? `/${id}` : '');
+  queryUrl = queryUrl.concat(id != null ? `/${id}` : "");
 
   const body = JSON.stringify(data);
 
@@ -25,6 +30,6 @@ const query = async (route: string, httpMethod: string, id: Number | null, data:
   }
 
   return response;
-}
+};
 
 export default query;

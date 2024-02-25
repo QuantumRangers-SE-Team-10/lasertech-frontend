@@ -1,9 +1,9 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom"; // Link
-import Splash from '../pages/Splash';
-import TestAPI from '../pages/testAPI';
-import Onboarding from '../pages/onboarding';
+import Splash from "../pages/Splash";
+import TestAPI from "../pages/testAPI";
+import Onboarding from "../pages/onboarding";
 
-import './App.css'
+import "./App.css";
 
 function App() {
   return (
@@ -17,7 +17,7 @@ function App() {
         </Routes>
       </Router>
     </>
-  )
+  );
 }
 
-export default App
+export default App;

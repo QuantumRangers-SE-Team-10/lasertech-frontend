@@ -1,16 +1,14 @@
-import gameLogo from '../src/assets/logo.jpg'
-import React, { useState, useRef, useEffect } from "react";
-import '../src/css/Splash.css'
+import gameLogo from "../src/assets/logo.jpg";
+import "../src/css/Splash.css";
 
 export default Splash;
 
 function Splash() {
-
   let timeLeft = 3;
   setInterval(() => {
     document.getElementById("countdown").innerHTML = timeLeft;
     timeLeft -= 1;
-    if(timeLeft < 0) {
+    if (timeLeft < 0) {
       timeLeft = 0;
     }
   }, 1000);
@@ -25,5 +23,5 @@ function Splash() {
         <meta http-equiv="refresh" content="3;url=/onboarding" />
       </div>
     </>
-  )
+  );
 }
