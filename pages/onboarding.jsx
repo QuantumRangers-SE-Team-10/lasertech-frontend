@@ -26,7 +26,7 @@ const Onboarding = () => {
   const [equipmentId, setEquipmentId] = useState("");
   const [isValid, setIsValid] = useState(true);
   const [showCodeName, setShowCodeName] = useState(false);
-  const [isAddButtonDisabled, setAddButtonDisabled] = useState(false);
+  const [isAddButtonDisabled, setAddButtonDisabled] = useState(true);
   // const [fetchedCodename, setFetchedCodename] = useState('');
 
   const handleEquipmentIdChange = (e, team, index) => {
@@ -224,7 +224,7 @@ const Onboarding = () => {
   return (
     <div className="window">
       <div className="window-header">
-        <h2>Edit Current Game</h2>
+        <h2>Game Setup</h2>
       </div>
       <div className="window-content">
         <div>
@@ -261,6 +261,10 @@ const Onboarding = () => {
                 // readOnly={showCodeName && codename !== ''}
                 onChange={(e) => setCodename(e.target.value)}
                 placeholder="Enter Codename"
+                style={{
+                  backgroundColor: isAddButtonDisabled ? "#aaa" : "#f9f9f9",
+                  borderColor: isAddButtonDisabled ? "#aaa" : "#f9f9f9",
+                }}
               />
             </div>
           )}
@@ -269,6 +273,9 @@ const Onboarding = () => {
               id="add-red-team"
               onClick={handleAddToRedTeam}
               disabled={isAddButtonDisabled}
+              style={{
+                backgroundColor: isAddButtonDisabled ? "#aaa" : "#f9f9f9",
+              }}
             >
               Add to Red Team
             </button>
@@ -276,6 +283,9 @@ const Onboarding = () => {
               id="add-green-team"
               onClick={handleAddToGreenTeam}
               disabled={isAddButtonDisabled}
+              style={{
+                backgroundColor: isAddButtonDisabled ? "#aaa" : "#f9f9f9",
+              }}
             >
               Add to Green Team
             </button>
@@ -287,20 +297,25 @@ const Onboarding = () => {
             {redTeamPlayers.map((player, index) => (
               <div key={index}>
                 <input
+                  id="playerID"
                   type="number"
                   value={player.playerID}
                   readOnly
                   //onChange={(e) => handleRedTeamChange(index, 'playerID', e.target.value)}
                   placeholder="ID Number"
+                  disabled
                 />
                 <input
+                  id="codename"
                   type="text"
                   value={player.codename}
                   readOnly
                   // onChange={(e) => handleRedTeamChange(index, 'codename', e.target.value)}
                   placeholder="Codename"
+                  disabled
                 />
                 <input
+                  id="equipmentId"
                   type="text"
                   value={player.equipmentId}
                   onChange={(e) => handleEquipmentIdChange(e, "Red", index)}
@@ -316,20 +331,25 @@ const Onboarding = () => {
             {greenTeamPlayers.map((player, index) => (
               <div key={index}>
                 <input
+                  id="playerID"
                   type="number"
                   value={player.playerID}
                   readOnly
                   //onChange={(e) => handleGreenTeamChange(index, 'playerID', e.target.value)}
                   placeholder="ID Number"
+                  disabled
                 />
                 <input
+                  id="codename"
                   type="text"
                   value={player.codename}
                   readOnly
                   //onChange={(e) => handleGreenTeamChange(index, 'codename', e.target.value)}
                   placeholder="Codename"
+                  disabled
                 />
                 <input
+                  id="equipmentId"
                   type="text"
                   value={player.equipmentId}
                   onChange={(e) => handleEquipmentIdChange(e, "Green", index)}
