@@ -3,10 +3,7 @@
   padding: 20px;
   border: 1px solid #ccc;
   color: #f9f9f9;
-  /* Add dark mode version */
-  /* border: 1px solid #000; */
   border-radius: 5px;
-  /* background-color: #f9f9f9; */
   background-color: #222;
   margin-bottom: 20px;
 }
@@ -98,7 +95,6 @@ input[type="number"] {
 .magnifying-glass-icon {
   width: 20px;
   height: 20px;
-  /* color: #000; */
 }
 
 .add-button-container {

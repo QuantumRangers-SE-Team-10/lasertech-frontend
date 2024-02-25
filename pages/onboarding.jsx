@@ -43,8 +43,7 @@ const Onboarding = () => {
   const fetchCodename = async (playerID) => {
     try {
       const player = await getPlayer(playerID);
-      if (player.codename) {
-        // setFetchedCodename(player.codename);
+      if (player) {
         setCodename(player.codename);
         setShowCodeName(true);
         setCodenameInputDisabled(true);
@@ -61,6 +60,7 @@ const Onboarding = () => {
     }
     console.log("Codename: ", playerID);
     setAddButtonDisabled(false);
+    // setCodenameInputDisabled(false);
   };
 
   const getBorderColor = (player) => {
@@ -159,14 +159,16 @@ const Onboarding = () => {
       console.log("Invalid player");
       return;
     }
-    const playerIds = [...redTeamPlayers, ...greenTeamPlayers]
-      .map((player) => player.playerID);
+    const playerIds = [...redTeamPlayers, ...greenTeamPlayers].map(
+      (player) => player.playerID
+    );
     if (playerIds.includes(playerID)) {
       // TODO: Handle this case
       console.log("Player ID already exists");
       return;
     }
     const newPlayer = { playerID, codename };
+    addPlayer(playerID, codename);
     if (selectedTeam === "Red") {
       if (redTeamIndex !== -1) {
         const updatedRedTeamPlayers = [...redTeamPlayers];
@@ -246,6 +248,8 @@ const Onboarding = () => {
               onChange={(e) => {
                 setPlayerID(e.target.value);
                 setAddButtonDisabled(true);
+                setCodenameInputDisabled(true);
+                setCodename("");
                 // setShowCodeName(false);
               }}
               placeholder="Player ID"
