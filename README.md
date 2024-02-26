@@ -1,13 +1,15 @@
 # LasterTech Front-End repository
 
-# Members
+# Team 10
 
-ALex Tran
-Shawn Ericksen
-Malachi Massey
-Casi Siempre
-Shawn Wheeler
-Tyler Cash
+## Members
+
+Alex Tran | GitHub: AlexTran0899 | Slack: Alex Tran
+Shawn Ericksen | GitHub: shawnericksen | Slack: Shawn Ericksen
+Malachi Massey | GitHub: MalachiMassey | Slack: Malachi Massey
+Cassie Smith | GitHub: CassieSmith8001 | Slack: Casi Siempre
+Shawn Wheeler | GitHub: Shawn-Wheeler | Slack: Shawn Wheeler
+Tyler Cash | GitHub: tcash1990 | Slack: Tyler Cash
 
 ## Getting Started
 
