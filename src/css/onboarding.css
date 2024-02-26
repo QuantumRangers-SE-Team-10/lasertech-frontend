@@ -1,0 +1,121 @@
+.window {
+  width: 100%;
+  padding: 20px;
+  border: 1px solid #ccc;
+  color: #f9f9f9;
+  border-radius: 5px;
+  background-color: #222;
+  margin-bottom: 20px;
+}
+
+.window-header {
+  padding-bottom: 10px;
+  border-bottom: 1px solid #ccc;
+  margin-bottom: 10px;
+}
+
+.window-header h2 {
+  margin: 0;
+}
+
+.window-content {
+  margin-bottom: 20px;
+}
+
+.columns {
+  display: flex;
+  flex-direction: row; /* Ensure columns are aligned horizontally */
+}
+
+.column {
+  flex: 1;
+  padding: 0 10px;
+}
+
+.column h3 {
+  margin-top: 20px;
+}
+
+.column input[id="codename"],
+.column input[id="playerID"] {
+  background-color: #aaa;
+  border-color: #aaa;
+}
+
+.column input[id="codename"]::placeholder,
+.column input[id="playerID"]::placeholder {
+  color: #eee;
+}
+
+.hotkeys {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+}
+
+.hotkeys button {
+  /* background-color: #000;
+  color: #fff; */
+  background-color: #f9f9f9;
+  color: #000;
+}
+
+/* Adjustments for input fields and labels */
+input[type="checkbox"],
+input[type="text"],
+input[type="number"] {
+  margin-bottom: 5px;
+}
+
+.player-input {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.player-input input[type="number"] {
+  width: 170px;
+  margin-bottom: 3px;
+}
+
+.player-input input[type="text"] {
+  width: 200px;
+  margin-bottom: 10px;
+}
+
+.magnify-icon {
+  cursor: pointer;
+  margin-left: 5px;
+  padding: 2px;
+  background-color: #f9f9f9;
+  border-radius: 2px;
+}
+
+.magnifying-glass-icon {
+  width: 20px;
+  height: 20px;
+}
+
+.add-button-container {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+}
+
+.add-button-container button {
+  color: #000;
+}
+
+input {
+  padding: 2px;
+  margin: 5px 2px;
+  border: 4px solid #f9f9f9;
+  background-color: #f9f9f9;
+  border-radius: 4px;
+  color: #000;
+}
+
+label {
+  margin-right: 5px;
+}

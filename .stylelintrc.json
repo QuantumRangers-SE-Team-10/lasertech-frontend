@@ -1,0 +1,15 @@
+{
+  "extends": [
+    "stylelint-config-standard"
+  ],
+  "rules": {
+    "selector-class-pattern": [
+      "^([a-z][a-z0-9]*)(-[a-z0-9]+)*$",
+      {
+        "resolveNestedSelectors": true
+      }
+    ],
+    "property-no-vendor-prefix": null,
+    "at-rule-no-vendor-prefix": null
+  }
+}
