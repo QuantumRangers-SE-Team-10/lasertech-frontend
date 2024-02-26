@@ -1,21 +1,61 @@
-import { useState } from 'react';
-import { addPlayer } from '../api/player';
+import { useEffect, useState } from "react";
+import { addPlayer, getPlayer } from "../api/player";
+import { addPlayerSession } from "../api/playerSession";
+import { addGame } from "../api/game";
 
-import '/src/css/onboarding.css';
+import "/src/css/onboarding.css";
 
 const Onboarding = () => {
-  const [playerID, setPlayerID] = useState('');
-  const [redTeamPlayers, setRedTeamPlayers] = useState(Array.from(Array(20).keys()).map(() => ({ codename: '', playerID: '', equipmentId: '' })));
-  const [greenTeamPlayers, setGreenTeamPlayers] = useState(Array.from(Array(20).keys()).map(() => ({ codename: '', playerID: '', equipmentId: '' })));
-  const [selectedTeam, setSelectedTeam] = useState('Red');
-  const [codename, setCodename] = useState('');
-  const [redteamindex, setRedTeamIndex] = useState(0);
-  const [greenteamindex, setGreenTeamIndex] = useState(0);
-  const [equipmentId, setEquipmentId] = useState('');
-  const [isValid, setIsValid] = useState(true);
+  const [playerID, setPlayerID] = useState("");
+  const [redTeamPlayers, setRedTeamPlayers] = useState(
+    Array.from(Array(20).keys()).map(() => ({
+      codename: "",
+      playerID: "",
+      equipmentId: "",
+    }))
+  );
+  const [greenTeamPlayers, setGreenTeamPlayers] = useState(
+    Array.from(Array(20).keys()).map(() => ({
+      codename: "",
+      playerID: "",
+      equipmentId: "",
+    }))
+  );
+  // const [selectedTeam, setSelectedTeam] = useState("Red");
+  const [game, setGame] = useState();
+  const [codename, setCodename] = useState("");
+  const [redTeamIndex, setRedTeamIndex] = useState(0);
+  const [greenTeamIndex, setGreenTeamIndex] = useState(0);
+  const [equipmentId, setEquipmentId] = useState("");
+  // const [isValid, setIsValid] = useState(true);
   const [showCodeName, setShowCodeName] = useState(false);
-  const [fetchedCodename, setFetchedCodename] = useState('');
+  const [isAddButtonDisabled, setAddButtonDisabled] = useState(true);
+  const [isCodenameInputDisabled, setCodenameInputDisabled] = useState(true);
 
+  // useEffect(async () => {
+  //   const game = await addGame(); // TODO
+  //   console.log(game);
+  //   // const fetchGame = async () => {
+  //   //   try {
+  //   //     const game = await addGame();
+  //   //     console.log("Game ID: ", game.id);
+  //   //   } catch (error) {
+  //   //     console.error("Error fetching game: ", error);
+  //   //   }
+  //   // };
+  //   // fetchGame();
+  // }, []);
+
+  useEffect(() => {
+    async function add_Game() {
+      const game = await addGame();
+      setGame(game);
+    }
+    
+    add_Game();
+  }, []);
+
+  // const [fetchedCodename, setFetchedCodename] = useState('');
 
   const handleEquipmentIdChange = (e, team, index) => {
     const value = e.target.value;
@@ -25,127 +65,161 @@ const Onboarding = () => {
   const handleBlur = (e, team, index) => {
     const value = e.target.value;
     validateEquipmentId(value, team, index);
-
   };
 
   const fetchCodename = async (playerID) => {
     try {
-      const response = await fetch(`/api/player/${playerID}`);
-      const data = await response.json();
-      if (data.codename) {
-        setFetchedCodename(data.codename);
+      const player = await getPlayer(playerID);
+      if (player) {
+        setCodename(player.codename);
         setShowCodeName(true);
+        setCodenameInputDisabled(true);
       } else {
-        setCodename('');
+        // setFetchedCodename('');
+        setCodename("");
         setShowCodeName(true);
+        setCodenameInputDisabled(false);
       }
     } catch (error) {
-      console.error('Error fetching codename:', error);
+      console.error("Error fetching codename:", error);
       setShowCodeName(true); // Show the input field for manual entry
-      //setCodename(''); // Reset codename state
+      // setCodename(''); // Reset codename state
     }
+    console.log("Codename: ", playerID);
+    setAddButtonDisabled(false);
+    // setCodenameInputDisabled(false);
   };
 
   const getBorderColor = (player) => {
-    if (player.equipmentId === '') {
-      return 'gray'; // Empty box or invalid equipment ID
-    } else if (player.equipmentId !== '' && player.isValid) {
-      return 'green'; // Valid equipment ID
+    if (player.equipmentId === "") {
+      return "gray"; // Empty box or invalid equipment ID
+    } else if (player.equipmentId !== "" && player.isValid) {
+      return "green"; // Valid equipment ID
     } else {
-      return 'red'; // Invalid equipment ID
+      return "red"; // Invalid equipment ID
     }
   };
 
   const validateEquipmentId = (value, team, index) => {
     const equipmentIdValue = parseInt(value);
-    const isValid = !isNaN(equipmentIdValue) && ((team === 'Green' && equipmentIdValue % 2 === 0) || (team === 'Red' && equipmentIdValue % 2 !== 0));
-    if (team === 'Red') {
+    const isValid =
+      !isNaN(equipmentIdValue) &&
+      ((team === "Green" && equipmentIdValue % 2 === 0) ||
+        (team === "Red" && equipmentIdValue % 2 !== 0));
+    if (team === "Red") {
       const updatedPlayers = [...redTeamPlayers];
-      updatedPlayers[index] = { ...updatedPlayers[index], equipmentId: value, isValid };
+      updatedPlayers[index] = {
+        ...updatedPlayers[index],
+        equipmentId: value,
+        isValid,
+      };
       setRedTeamPlayers(updatedPlayers);
-    } else if (team === 'Green') {
+    } else if (team === "Green") {
       const updatedPlayers = [...greenTeamPlayers];
-      updatedPlayers[index] = { ...updatedPlayers[index], equipmentId: value, isValid };
+      updatedPlayers[index] = {
+        ...updatedPlayers[index],
+        equipmentId: value,
+        isValid,
+      };
       setGreenTeamPlayers(updatedPlayers);
     }
-
   };
 
   const handleAddToRedTeam = () => {
-    setSelectedTeam('Red');
-    handleSubmitPlayer();
+    // setSelectedTeam("Red"); 
+    setShowCodeName(false);
+    handleSubmitPlayer("Red");
   };
 
   const handleAddToGreenTeam = () => {
-    setSelectedTeam('Green');
-    handleSubmitPlayer();
+    // setSelectedTeam("Green");
+    setShowCodeName(false);
+    handleSubmitPlayer("Green");
   };
 
   const setEquipmentID = (index, value, team) => {
-
     if (!value || !/^\d+$/.test(value)) {
       console.log("Invalid equipment ID");
-      setEquipmentId('');
+      setEquipmentId("");
       return;
     }
 
-
-    const updatedPlayers = team === 'Red' ? [...redTeamPlayers] : [...greenTeamPlayers];
-
+    const updatedPlayers =
+      team === "Red" ? [...redTeamPlayers] : [...greenTeamPlayers];
 
     updatedPlayers[index] = {
       ...updatedPlayers[index],
-      equipmentId: value
+      equipmentId: value,
     };
 
-
-    if (team === 'Red') {
+    if (team === "Red") {
       setRedTeamPlayers(updatedPlayers);
-    } else if (team === 'Green') {
+    } else if (team === "Green") {
       setGreenTeamPlayers(updatedPlayers);
     }
 
-    setEquipmentId('');
+    setEquipmentId("");
   };
 
   const handleClearGame = () => {
-    setRedTeamPlayers(Array.from(Array(20).keys()).map(() => ({ codename: '', playerID: '', equipmentId: '' })));
-    setGreenTeamPlayers(Array.from(Array(20).keys()).map(() => ({ codename: '', playerID: '', equipmentId: '' })));
+    setRedTeamPlayers(
+      Array.from(Array(20).keys()).map(() => ({
+        codename: "",
+        playerID: "",
+        equipmentId: "",
+      }))
+    );
+    setGreenTeamPlayers(
+      Array.from(Array(20).keys()).map(() => ({
+        codename: "",
+        playerID: "",
+        equipmentId: "",
+      }))
+    );
     setRedTeamIndex(0);
     setGreenTeamIndex(0);
-
   };
 
-
-  const handleSubmitPlayer = async () => {
+  const handleSubmitPlayer = async (team) => {
+    setAddButtonDisabled(true);
     if (!playerID || !codename) {
       console.log("Invalid player");
       return;
     }
+    const playerIds = [...redTeamPlayers, ...greenTeamPlayers].map(
+      (player) => player.playerID
+    );
+    if (playerIds.includes(playerID)) {
+      // TODO: Handle this case
+      console.log("Player ID already exists");
+      return;
+    }
     const newPlayer = { playerID, codename };
-    if (selectedTeam === 'Red') {
-      if (redteamindex !== -1) {
+    addPlayer(playerID, codename);
+    if (team === "Red") {
+      console.log("Red Team");
+      if (redTeamIndex !== -1) {
         const updatedRedTeamPlayers = [...redTeamPlayers];
-        updatedRedTeamPlayers[redteamindex] = newPlayer; // Update existing player
+        updatedRedTeamPlayers[redTeamIndex] = newPlayer; // Update existing player
         setRedTeamPlayers(updatedRedTeamPlayers);
-        setRedTeamIndex(redteamindex + 1);
+        setRedTeamIndex(redTeamIndex + 1);
       } else {
         console.log("Player not found in the Red Team");
       }
-    } else if (selectedTeam === 'Green') {
-      if (greenteamindex !== -1) {
+    } else if (team === "Green") {
+      if (greenTeamIndex !== -1) {
         const updatedGreenTeamPlayers = [...greenTeamPlayers];
-        updatedGreenTeamPlayers[greenteamindex] = newPlayer; // Update existing player
+        updatedGreenTeamPlayers[greenTeamIndex] = newPlayer; // Update existing player
         setGreenTeamPlayers(updatedGreenTeamPlayers);
-        setGreenTeamIndex(greenteamindex + 1);
+        setGreenTeamIndex(greenTeamIndex + 1);
       } else {
         console.log("Player not found in the Green Team");
       }
     }
 
     // Clear input fields after submission
-    setPlayerID('');
-    setCodename('');
+    setPlayerID("");
+    setCodename("");
   };
 
   const updateCodeName = async (playerID) => {
@@ -163,95 +237,155 @@ const Onboarding = () => {
     }
   };
 
-
-
   const handleSubmit = async () => {
     const players = [...redTeamPlayers, ...greenTeamPlayers];
+    console.log(players);
 
-    const filteredPlayers = players
-      .filter((player) => player.playerID !== '' && player.codename !== '');
+    const filteredPlayers = players.filter(
+      (player) => player.playerID !== "" && player.codename !== ""
+    );
+
+    // filteredPlayers.forEach(async (player) => {
+    //   await addPlayer(player.playerID, player.codename);
+    // });
 
     filteredPlayers.forEach(async (player) => {
-      await addPlayer(player.playerID, player.codename);
-    });
-
-    filteredPlayers.forEach((player) => {
-      if (player.equipmentId) {
-        if (player.team === 'Red') {
-          setEquipmentID(redteamindex, player.equipmentId, 'Red');
-        } else if (player.team === 'Green') {
-          setEquipmentID(greenteamindex, player.equipmentId, 'Green');
-        }
+      if (player.equipmentId && player.codename !== "" && player.playerID !== "") {
+        // if (player.team === "Red") {
+        //   setEquipmentID(redTeamIndex, player.equipmentId, "Red");
+        // } else if (player.team === "Green") {
+        //   setEquipmentID(greenTeamIndex, player.equipmentId, "Green");
+        // }
+        const pS = await addPlayerSession(player.playerID, game.gameID, player.equipmentId, player.team);
+        console.log(pS);
       }
     });
 
-    console.log(filteredPlayers);
+    // console.log(game);
+
+    // console.log(filteredPlayers);
   };
 
   return (
     <div className="window">
-    <div className="window-header">
-      <h2>Edit Current Game</h2>
-    </div>
-    <div className="window-content">
-      <div>
-        <h3> Add Player</h3>
-        <div className="player-input">
-          <input
-            type="number"
-            value={playerID}
-            onChange={(e) => {
-              setPlayerID(e.target.value);
-              setShowCodeName(false);
-            }}
-            placeholder="Player ID"
-          />
-          <span className="magnify-icon" onClick={() => {
-          fetchCodename(playerID);
-          setShowCodeName(!showCodeName)}}>
-            <img src="../src/assets/magnifying_glass_icon.png" alt="Search" className="magnifying-glass-icon" />
-          </span>
-        </div>
-        {playerID && showCodeName && (
+      <div className="window-header">
+        <h2>Game Setup</h2>
+      </div>
+      <div className="window-content">
+        <div>
+          <h3> Add Player</h3>
           <div className="player-input">
             <input
-              type="text"
-              value={showCodeName && fetchedCodename !== '' ? fetchedCodename : codename}
-              readOnly={showCodeName && fetchedCodename !== ''}
-              onChange={(e) => setCodename(e.target.value)}
-              placeholder="Enter Codename"
+              type="number"
+              value={playerID}
+              onChange={(e) => {
+                setPlayerID(e.target.value);
+                setAddButtonDisabled(true);
+                setCodenameInputDisabled(true);
+                setCodename("");
+                // setShowCodeName(false);
+              }}
+              placeholder="Player ID"
             />
+            <span
+              className="magnify-icon"
+              onClick={() => {
+                fetchCodename(playerID);
+              }}
+            >
+              <img
+                src="../src/assets/magnifying_glass_icon.png"
+                alt="Search"
+                className="magnifying-glass-icon"
+              />
+            </span>
           </div>
-        )}
-          <div className="add-button-container">
-            <button onClick={handleAddToRedTeam}>Add to Red Team</button>
-            <button onClick={handleAddToGreenTeam}>Add to Green Team</button>
+          {playerID && showCodeName && (
+            <div className="player-input">
+              <input
+                type="text"
+                value={codename}
+                // readOnly={showCodeName && codename !== ''}
+                onChange={(e) => setCodename(e.target.value)}
+                placeholder="Enter Codename"
+                style={{
+                  backgroundColor: isCodenameInputDisabled ? "#aaa" : "#f9f9f9",
+                  borderColor: isCodenameInputDisabled ? "#aaa" : "#f9f9f9",
+                }}
+                disabled={isCodenameInputDisabled}
+              />
+            </div>
+          )}
+          <div
+            className="add-button-container"
+            style={{
+              display: "grid",
+              grid: "repeat(2, auto) / repeat(12, 1fr)",
+            }}
+          >
+            <span
+              style={{
+                gridColumn: "span 3",
+              }}
+            ></span>
+            <button
+              id="add-red-team"
+              onClick={handleAddToRedTeam}
+              disabled={isAddButtonDisabled}
+              style={{
+                backgroundColor: isAddButtonDisabled ? "#aaa" : "#f9f9f9",
+                gridColumn: "span 3",
+              }}
+            >
+              Add to Red Team
+            </button>
+            <button
+              id="add-green-team"
+              onClick={handleAddToGreenTeam}
+              disabled={isAddButtonDisabled}
+              style={{
+                backgroundColor: isAddButtonDisabled ? "#aaa" : "#f9f9f9",
+                gridColumn: "span 3",
+              }}
+            >
+              <span
+                style={{
+                  gridColumn: "span 3",
+                }}
+              ></span>
+              Add to Green Team
+            </button>
           </div>
         </div>
         <div className="columns">
           <div className="column">
-            <h3 style={{ color: 'red' }}>Red Team</h3>
+            <h3 style={{ color: "red" }}>Red Team</h3>
             {redTeamPlayers.map((player, index) => (
               <div key={index}>
                 <input
+                  id="playerID"
                   type="number"
                   value={player.playerID}
                   readOnly
                   //onChange={(e) => handleRedTeamChange(index, 'playerID', e.target.value)}
                   placeholder="ID Number"
+                  disabled
                 />
                 <input
+                  id="codename"
                   type="text"
                   value={player.codename}
                   readOnly
                   // onChange={(e) => handleRedTeamChange(index, 'codename', e.target.value)}
                   placeholder="Codename"
+                  disabled
                 />
                 <input
+                  id="equipmentId"
                   type="text"
                   value={player.equipmentId}
-                  onChange={(e) => handleEquipmentIdChange(e, 'Red', index)}
-                  onBlur={(e) => handleBlur(e, 'Red', index)}
+                  onChange={(e) => handleEquipmentIdChange(e, "Red", index)}
+                  onBlur={(e) => handleBlur(e, "Red", index)}
                   placeholder="Equipment ID"
                   style={{ borderColor: getBorderColor(player) }}
                 />
@@ -259,28 +393,33 @@ const Onboarding = () => {
             ))}
           </div>
           <div className="column">
-            <h3 style={{ color: 'green' }}>Green Team</h3>
+            <h3 style={{ color: "green" }}>Green Team</h3>
             {greenTeamPlayers.map((player, index) => (
               <div key={index}>
                 <input
+                  id="playerID"
                   type="number"
                   value={player.playerID}
                   readOnly
                   //onChange={(e) => handleGreenTeamChange(index, 'playerID', e.target.value)}
                   placeholder="ID Number"
+                  disabled
                 />
                 <input
+                  id="codename"
                   type="text"
                   value={player.codename}
                   readOnly
                   //onChange={(e) => handleGreenTeamChange(index, 'codename', e.target.value)}
                   placeholder="Codename"
+                  disabled
                 />
                 <input
+                  id="equipmentId"
                   type="text"
                   value={player.equipmentId}
-                  onChange={(e) => handleEquipmentIdChange(e, 'Green', index)}
-                  onBlur={(e) => handleBlur(e, 'Green', index)}
+                  onChange={(e) => handleEquipmentIdChange(e, "Green", index)}
+                  onBlur={(e) => handleBlur(e, "Green", index)}
                   placeholder="Equipment ID"
                   style={{ borderColor: getBorderColor(player) }}
                 />
@@ -291,7 +430,7 @@ const Onboarding = () => {
       </div>
       <div className="hotkeys">
         <button onClick={handleSubmit}>Submit</button>
-        <button onClick={() => console.log("Start Game")}>Start Game</button>
+        {/* <button onClick={() => console.log("Start Game")}>Start Game</button> */}
         <button onClick={handleClearGame}>Clear Game</button>
       </div>
     </div>
