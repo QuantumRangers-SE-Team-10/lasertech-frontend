@@ -1,13 +1,12 @@
 # LasterTech Front-End Repository
 
-### Members
-- Tyler Cash
-- Shawn Ericksen
-- Malachi Massey
-- Cassie Smith
-- Alex Tran
-- Shawn Wheeler
-
+###  Team 10 Members
+Alex Tran | GitHub: AlexTran0899 | Slack: Alex Tran
+Shawn Ericksen | GitHub: shawnericksen | Slack: Shawn Ericksen
+Malachi Massey | GitHub: MalachiMassey | Slack: Malachi Massey
+Cassie Smith | GitHub: CassieSmith8001 | Slack: Casi Siempre
+Shawn Wheeler | GitHub: Shawn-Wheeler | Slack: Shawn Wheeler
+Tyler Cash | GitHub: tcash1990 | Slack: Tyler Cash
 
 # How to run the application locally
 1. Ensure that you are running this on the provided Ubuntu VM (these instruction will not work on Mac or Window due to network restriction)
