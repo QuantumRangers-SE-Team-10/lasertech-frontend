@@ -1,4 +1,4 @@
-# LasterTech Front-End Repository
+# LaserTech Front-End Repository
 
 ###  Team 10 Members
 
