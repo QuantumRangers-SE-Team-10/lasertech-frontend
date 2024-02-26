@@ -62,7 +62,8 @@ sudo apt-get install docker-ce docker-ce-cli containerd.io docker-buildx-plugin 
 ```
 
 
-# To run the Development build
+# To run the Development build (Standalone)
+Note: This does not cover the steps required to setup and connect to a backend server.
 
 To run the project, you need to have Node.js and npm installed on your machine.
 
