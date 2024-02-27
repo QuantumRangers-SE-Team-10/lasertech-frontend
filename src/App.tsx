@@ -1,3 +1,4 @@
+import React from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom"; // Link
 import Splash from "../pages/Splash";
 import TestAPI from "../pages/testAPI";

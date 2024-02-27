@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { addPlayer, getPlayer } from "../api/player";
 import { addPlayerSession } from "../api/playerSession";
 import { addGame } from "../api/game";
@@ -6,6 +7,7 @@ import { addGame } from "../api/game";
 import "/src/css/onboarding.css";
 
 const Onboarding = () => {
+  const navigate = useNavigate();
   const [playerID, setPlayerID] = useState("");
   const [redTeamPlayers, setRedTeamPlayers] = useState(
     Array.from(Array(20).keys()).map(() => ({
@@ -261,9 +263,7 @@ const Onboarding = () => {
       }
     });
 
-    // console.log(game);
-
-    // console.log(filteredPlayers);
+    navigate(`/game?id=${game.gameID}`);
   };
 
   return (
