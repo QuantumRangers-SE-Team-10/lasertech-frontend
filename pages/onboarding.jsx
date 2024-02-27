@@ -28,7 +28,7 @@ const Onboarding = () => {
   const [codename, setCodename] = useState("");
   const [redTeamIndex, setRedTeamIndex] = useState(0);
   const [greenTeamIndex, setGreenTeamIndex] = useState(0);
-  const [equipmentId, setEquipmentId] = useState("");
+  // const [equipmentId, setEquipmentId] = useState("");
   // const [isValid, setIsValid] = useState(true);
   const [showCodeName, setShowCodeName] = useState(false);
   const [isAddButtonDisabled, setAddButtonDisabled] = useState(true);
@@ -139,29 +139,29 @@ const Onboarding = () => {
     handleSubmitPlayer("Green");
   };
 
-  const setEquipmentID = (index, value, team) => {
-    if (!value || !/^\d+$/.test(value)) {
-      console.log("Invalid equipment ID");
-      setEquipmentId("");
-      return;
-    }
+  // const setEquipmentID = (index, value, team) => {
+  //   if (!value || !/^\d+$/.test(value)) {
+  //     console.log("Invalid equipment ID");
+  //     setEquipmentId("");
+  //     return;
+  //   }
 
-    const updatedPlayers =
-      team === "Red" ? [...redTeamPlayers] : [...greenTeamPlayers];
+  //   const updatedPlayers =
+  //     team === "Red" ? [...redTeamPlayers] : [...greenTeamPlayers];
 
-    updatedPlayers[index] = {
-      ...updatedPlayers[index],
-      equipmentId: value,
-    };
+  //   updatedPlayers[index] = {
+  //     ...updatedPlayers[index],
+  //     equipmentId: value,
+  //   };
 
-    if (team === "Red") {
-      setRedTeamPlayers(updatedPlayers);
-    } else if (team === "Green") {
-      setGreenTeamPlayers(updatedPlayers);
-    }
+  //   if (team === "Red") {
+  //     setRedTeamPlayers(updatedPlayers);
+  //   } else if (team === "Green") {
+  //     setGreenTeamPlayers(updatedPlayers);
+  //   }
 
-    setEquipmentId("");
-  };
+  //   setEquipmentId("");
+  // };
 
   const handleClearGame = () => {
     setRedTeamPlayers(
@@ -224,20 +224,20 @@ const Onboarding = () => {
     setCodename("");
   };
 
-  const updateCodeName = async (playerID) => {
-    if (!playerID) {
-      return;
-    }
-    try {
-      const existingCodename = await fetchCodename(playerID);
-      setCodename(existingCodename);
-      //setShowCodeName(!!existingCodename); // Set showCodeName based on whether codename exists
-    } catch (error) {
-      console.log("Error fetching codename: ", error);
-      //setCodename(''); // Reset codename if there's an error
-      //setShowCodeName(false); // Hide the codename input if there's an error
-    }
-  };
+  // const updateCodeName = async (playerID) => {
+  //   if (!playerID) {
+  //     return;
+  //   }
+  //   try {
+  //     const existingCodename = await fetchCodename(playerID);
+  //     setCodename(existingCodename);
+  //     //setShowCodeName(!!existingCodename); // Set showCodeName based on whether codename exists
+  //   } catch (error) {
+  //     console.log("Error fetching codename: ", error);
+  //     //setCodename(''); // Reset codename if there's an error
+  //     //setShowCodeName(false); // Hide the codename input if there's an error
+  //   }
+  // };
 
   const handleSubmit = async () => {
     const players = [...redTeamPlayers, ...greenTeamPlayers];

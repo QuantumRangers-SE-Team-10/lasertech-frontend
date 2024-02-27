@@ -1,3 +1,4 @@
+import React from "react";
 import gameLogo from "../src/assets/logo.jpg";
 import "../src/css/Splash.css";
 
@@ -6,7 +7,10 @@ export default Splash;
 function Splash() {
   let timeLeft = 3;
   setInterval(() => {
-    document.getElementById("countdown").innerHTML = timeLeft;
+    const element = document.getElementById("countdown");
+    if (element) {
+      element.innerHTML = timeLeft.toString();
+    }
     timeLeft -= 1;
     if (timeLeft < 0) {
       timeLeft = 0;

@@ -1,0 +1,13 @@
+{
+  "compilerOptions": {
+    "jsx": "react",
+    "esModuleInterop": true,
+  },
+  "include": [
+    "./src/**/*.tsx",
+    "./pages/*.tsx",
+    "./api/*.ts",
+    "types/*.d.ts", "pages/onboarding.jsx",
+  ],
+  "exclude": ["dist", "build", "node_modules"],
+}
