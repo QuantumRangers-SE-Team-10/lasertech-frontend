@@ -49,7 +49,7 @@
     opacity: 0.96;
     animation-name: particle3;
     animation-delay: -0.6s;
-    transform: translate3d(0vw, 63vh, 52px);
+    transform: translate3d(1vw, 63vh, 52px);
 }
 
 @keyframes  particle3 {
