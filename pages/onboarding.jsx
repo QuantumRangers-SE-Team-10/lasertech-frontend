@@ -4,6 +4,7 @@ import { addPlayerSession } from "../api/playerSession";
 import { addGame } from "../api/game";
 
 import "/src/css/onboarding.css";
+// import "/src/css/particle.css";
 
 const Onboarding = () => {
   const [playerID, setPlayerID] = useState("");
@@ -294,7 +295,7 @@ const Onboarding = () => {
               }}
             >
               <img
-                src="../src/assets/magnifying_glass_icon.png"
+                src="../src/assets/Magnifying_glass_icon.svg"
                 alt="Search"
                 className="magnifying-glass-icon"
               />
@@ -329,10 +330,11 @@ const Onboarding = () => {
               }}
             ></span>
             <button
-              id="add-red-team"
+              className="add-red-team"
               onClick={handleAddToRedTeam}
               disabled={isAddButtonDisabled}
               style={{
+                color: "red",
                 backgroundColor: isAddButtonDisabled ? "#aaa" : "#f9f9f9",
                 gridColumn: "span 3",
               }}
@@ -344,6 +346,7 @@ const Onboarding = () => {
               onClick={handleAddToGreenTeam}
               disabled={isAddButtonDisabled}
               style={{
+                color: "green",
                 backgroundColor: isAddButtonDisabled ? "#aaa" : "#f9f9f9",
                 gridColumn: "span 3",
               }}
@@ -359,7 +362,7 @@ const Onboarding = () => {
         </div>
         <div className="columns">
           <div className="column">
-            <h3 style={{ color: "red" }}>Red Team</h3>
+            <h3 className="redteam">Red Team</h3>
             {redTeamPlayers.map((player, index) => (
               <div key={index}>
                 <input
@@ -393,7 +396,7 @@ const Onboarding = () => {
             ))}
           </div>
           <div className="column">
-            <h3 style={{ color: "green" }}>Green Team</h3>
+            <h3 className="greenteam">Green Team</h3>
             {greenTeamPlayers.map((player, index) => (
               <div key={index}>
                 <input
