@@ -1,4 +1,3 @@
-import React from "react";
 import gameLogo from "../src/assets/logo.jpg";
 import "../src/css/Splash.css";
 

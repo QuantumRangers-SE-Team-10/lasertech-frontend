@@ -2,12 +2,14 @@
   "compilerOptions": {
     "jsx": "react",
     "esModuleInterop": true,
+    "lib": ["dom", "es2017"],
   },
   "include": [
     "./src/**/*.tsx",
     "./pages/*.tsx",
     "./api/*.ts",
-    "types/*.d.ts", "pages/onboarding.jsx",
+    "types/*.d.ts",
+    "pages/*",
   ],
   "exclude": ["dist", "build", "node_modules"],
 }

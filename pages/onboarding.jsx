@@ -109,20 +109,20 @@ const Onboarding = () => {
       ((team === "Green" && equipmentIdValue % 2 === 0) ||
         (team === "Red" && equipmentIdValue % 2 !== 0));
     if (team === "Red") {
-      const updatedPlayers = [...redTeamPlayers];
-      updatedPlayers[index] = {
-        ...updatedPlayers[index],
-        equipmentId: value,
-        isValid,
-      };
+      const updatedPlayers = redTeamPlayers.map(
+        (player, i) =>
+          i === index
+            ? { ...player, equipmentId: value, isValid }
+            : { ...player }
+      );
       setRedTeamPlayers(updatedPlayers);
     } else if (team === "Green") {
-      const updatedPlayers = [...greenTeamPlayers];
-      updatedPlayers[index] = {
-        ...updatedPlayers[index],
-        equipmentId: value,
-        isValid,
-      };
+      const updatedPlayers = greenTeamPlayers.map(
+        (player, i) =>
+          i === index
+            ? { ...player, equipmentId: value, isValid }
+            : { ...player }
+      );
       setGreenTeamPlayers(updatedPlayers);
     }
   };
@@ -197,7 +197,7 @@ const Onboarding = () => {
       return;
     }
     const newPlayer = { playerID, codename };
-    addPlayer(playerID, codename);
+    addPlayer(Number(playerID), codename);
     if (team === "Red") {
       console.log("Red Team");
       if (redTeamIndex !== -1) {
@@ -247,10 +247,6 @@ const Onboarding = () => {
       (player) => player.playerID !== "" && player.codename !== ""
     );
 
-    // filteredPlayers.forEach(async (player) => {
-    //   await addPlayer(player.playerID, player.codename);
-    // });
-
     filteredPlayers.forEach(async (player) => {
       if (player.equipmentId && player.codename !== "" && player.playerID !== "") {
         // if (player.team === "Red") {
@@ -258,7 +254,7 @@ const Onboarding = () => {
         // } else if (player.team === "Green") {
         //   setEquipmentID(greenTeamIndex, player.equipmentId, "Green");
         // }
-        const pS = await addPlayerSession(player.playerID, game.gameID, player.equipmentId, player.team);
+        const pS = await addPlayerSession(Number(player.playerID), game.gameID, Number(player.equipmentId), player.team);
         console.log(pS);
       }
     });

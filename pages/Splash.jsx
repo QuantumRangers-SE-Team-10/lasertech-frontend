@@ -1,4 +1,4 @@
-import React from "react";
+// import gameLogo from "../src/assets/logo.jpg";
 import gameLogo from "../src/assets/logo.jpg";
 import "../src/css/Splash.css";
 
@@ -24,7 +24,7 @@ function Splash() {
       </div>
       <div id="countdown" className="countdown"></div>
       <div>
-        <meta http-equiv="refresh" content="3;url=/onboarding" />
+        <meta httpEquiv="refresh" content="3;url=/onboarding" />
       </div>
     </>
   );
