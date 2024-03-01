@@ -1,6 +1,6 @@
 import gameLogo from "../src/assets/logo.jpg";
-import "../src/css/Splash.css";
-import "../src/css/particle.css";
+import splashStyling from "../src/css/splash.module.css";
+import particleStyling from "../src/css/particle.module.css";
 
 export default Splash;
 
@@ -16,29 +16,29 @@ function Splash() {
 
   return (
     <>
-      <div id="countdown" className="countdown"> 3 </div>
-      <div id="particle_container">
-        <div className="particle"></div>
-        <div className="particle"></div>
-        <div className="particle"></div>
-        <div className="particle"></div>
-        <div className="particle"></div>
-        <div className="particle"></div>
-        <div className="particle"></div>
-        <div className="particle"></div>
-        <div className="particle"></div>
-        <div className="particle"></div>
-        <div className="particle"></div>
-        <div className="particle"></div>
-        <div className="particle"></div>
-        <div className="particle"></div>
-        <div className="particle"></div>
+      <div id="countdown" className={splashStyling.countdown}> 3 </div>
+      <div id="particle-container">
+        <div className={particleStyling.particle}></div>
+        <div className={particleStyling.particle}></div>
+        <div className={particleStyling.particle}></div>
+        <div className={particleStyling.particle}></div>
+        <div className={particleStyling.particle}></div>
+        <div className={particleStyling.particle}></div>
+        <div className={particleStyling.particle}></div>
+        <div className={particleStyling.particle}></div>
+        <div className={particleStyling.particle}></div>
+        <div className={particleStyling.particle}></div>
+        <div className={particleStyling.particle}></div>
+        <div className={particleStyling.particle}></div>
+        <div className={particleStyling.particle}></div>
+        <div className={particleStyling.particle}></div>
+        <div className={particleStyling.particle}></div>
       </div>
       <div>
-        <img src={gameLogo} className="logo" alt="Game logo" />
+        <img src={gameLogo} className={splashStyling.logo} alt="Game logo" />
       </div>
       <div>
-        <meta http-equiv="refresh" content="3;url=/onboarding" />
+        <meta httpEquiv="refresh" content="3;url=/onboarding" />
       </div>
     </>
   );
