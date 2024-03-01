@@ -3,7 +3,7 @@ import { addPlayer, getPlayer } from "../api/player";
 import { addPlayerSession } from "../api/playerSession";
 import { addGame } from "../api/game";
 
-import "/src/css/onboarding.css";
+import onboardingStyles from "../src/css/onboarding.module.css";
 // import "/src/css/particle.css";
 
 const Onboarding = () => {
@@ -268,14 +268,14 @@ const Onboarding = () => {
   };
 
   return (
-    <div className="window">
-      <div className="window-header">
+    <div className={onboardingStyles.window}>
+      <div className={onboardingStyles.windowHeader}>
         <h2>Game Setup</h2>
       </div>
-      <div className="window-content">
+      <div className={onboardingStyles.windowContent}>
         <div>
           <h3> Add Player</h3>
-          <div className="player-input">
+          <div className={onboardingStyles.playerInput}>
             <input
               type="number"
               value={playerID}
@@ -289,7 +289,7 @@ const Onboarding = () => {
               placeholder="Player ID"
             />
             <span
-              className="magnify-icon"
+              className={onboardingStyles.magnifyIcon}
               onClick={() => {
                 fetchCodename(playerID);
               }}
@@ -297,12 +297,12 @@ const Onboarding = () => {
               <img
                 src="../src/assets/Magnifying_glass_icon.svg"
                 alt="Search"
-                className="magnifying-glass-icon"
+                className={onboardingStyles.magnifyingGlassIcon}
               />
             </span>
           </div>
           {playerID && showCodeName && (
-            <div className="player-input">
+            <div className={onboardingStyles.playerInput}>
               <input
                 type="text"
                 value={codename}
@@ -317,52 +317,36 @@ const Onboarding = () => {
               />
             </div>
           )}
-          <div
-            className="add-button-container"
-            style={{
-              display: "grid",
-              grid: "repeat(2, auto) / repeat(12, 1fr)",
-            }}
-          >
-            <span
-              style={{
-                gridColumn: "span 3",
-              }}
-            ></span>
+          <div className={onboardingStyles.buttonContainer}>
+            <span style={{gridColumn: "span 3"}}></span>
             <button
-              className="add-red-team"
+              className={onboardingStyles.addTeamButton}
               onClick={handleAddToRedTeam}
               disabled={isAddButtonDisabled}
               style={{
                 color: "red",
                 backgroundColor: isAddButtonDisabled ? "#aaa" : "#f9f9f9",
-                gridColumn: "span 3",
               }}
             >
               Add to Red Team
             </button>
             <button
-              id="add-green-team"
+              className={onboardingStyles.addTeamButton}
               onClick={handleAddToGreenTeam}
               disabled={isAddButtonDisabled}
               style={{
                 color: "green",
                 backgroundColor: isAddButtonDisabled ? "#aaa" : "#f9f9f9",
-                gridColumn: "span 3",
               }}
             >
-              <span
-                style={{
-                  gridColumn: "span 3",
-                }}
-              ></span>
               Add to Green Team
             </button>
+            <span style={{gridColumn: "span 3"}}></span>
           </div>
         </div>
-        <div className="columns">
-          <div className="column">
-            <h3 className="redteam">Red Team</h3>
+        <div className={onboardingStyles.columns}>
+          <div className={onboardingStyles.column}>
+            <h3 className={onboardingStyles.redTeam}>Red Team</h3>
             {redTeamPlayers.map((player, index) => (
               <div key={index}>
                 <input
@@ -395,8 +379,8 @@ const Onboarding = () => {
               </div>
             ))}
           </div>
-          <div className="column">
-            <h3 className="greenteam">Green Team</h3>
+          <div className={onboardingStyles.column}>
+            <h3 className={onboardingStyles.greenTeam}>Green Team</h3>
             {greenTeamPlayers.map((player, index) => (
               <div key={index}>
                 <input
@@ -431,7 +415,8 @@ const Onboarding = () => {
           </div>
         </div>
       </div>
-      <div className="hotkeys">
+      <div className={onboardingStyles.hotkeys}>
+        <span style={{gridColumn: "span 2"}}></span>
         <button onClick={handleSubmit}>Submit</button>
         {/* <button onClick={() => console.log("Start Game")}>Start Game</button> */}
         <button onClick={handleClearGame}>Clear Game</button>

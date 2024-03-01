@@ -9,7 +9,7 @@
   margin-bottom: 20px;
 }
 
-.window-header {
+.windowHeader {
   padding-bottom: 10px;
   border-bottom: 1px solid #ccc;
   margin-bottom: 10px;
@@ -18,11 +18,11 @@
   font-weight: bold;
 }
 
-.window-header h2 {
+.windowHeader h2 {
   margin: 0;
 }
 
-.window-content {
+.windowContent {
   margin-bottom: 20px;
   font-family: "Trebuchet MS", sans-serif;
 }
@@ -53,9 +53,10 @@
 }
 
 .hotkeys {
-  display: flex;
+  display: grid;
+  grid: repeat(2, auto) / repeat(6, 1fr);
   justify-content: center;
-  gap: 10px;
+  gap: 15px;
 }
 
 .hotkeys button {
@@ -72,24 +73,24 @@ input[type="number"] {
   margin-bottom: 5px;
 }
 
-.player-input {
+.playerInput {
   display: flex;
   justify-content: center;
   align-items: center;
   margin-bottom: 10px;
 }
 
-.player-input input[type="number"] {
+.playerInput input[type="number"] {
   width: 170px;
   margin-bottom: 3px;
 }
 
-.player-input input[type="text"] {
+.playerInput input[type="text"] {
   width: 200px;
   margin-bottom: 10px;
 }
 
-.magnify-icon {
+.magnifyIcon {
   cursor: pointer;
   margin-left: 5px;
   padding: 2px;
@@ -97,19 +98,24 @@ input[type="number"] {
   border-radius: 2px;
 }
 
-.magnifying-glass-icon {
+.magnifyingGlassIcon {
   width: 20px;
   height: 20px;
 }
 
-.add-button-container {
-  display: flex;
+.buttonContainer {
+  display: grid;
+  grid: repeat(2, auto) / repeat(12, 1fr);
   justify-content: center;
-  gap: 10px;
+  gap: 15px;
 }
 
-.add-button-container button {
+.buttonContainer button {
   color: #000;
+}
+
+.addTeamButton {
+  grid-column: span 3;
 }
 
 input {
@@ -125,16 +131,16 @@ label {
   margin-right: 5px;
 }
 
-.redteam {
+.redTeam {
   color: red;
 }
 
-.greenteam {
+.greenTeam {
   color: green;
 }
 
-.redteam,
-.greenteam {
+.redTeam,
+.greenTeam {
   font-size: 30px;
   font-weight: bold;
 }
