@@ -1,28 +1,28 @@
 import { useSearchParams } from "react-router-dom"
 import { useEffect, useState } from "react";
-import "/src/css/playerDisplay.css"
+import playerDisplayStyles from "/src/css/playerDisplay.module.css"
 
 const PlayerDisplay = () => {
     return (
         <div className="playerDisplay">
-            <div class="redTeam">
-                <div class="redPlayerName">
+            <div className={playerDisplayStyles.redTeam}>
+                <div className={playerDisplayStyles.redPlayerName}>
 
                     <h2>Red Player Name</h2>
                 </div>
-                <div class="redPlayerScore">
+                <div className={playerDisplayStyles.redPlayerScore}>
 
                     <h2>Red Player Score</h2>
                 </div>
             </div>
 
 
-            <div class="greenTeam">
-                <div class="greenPlayerName">
+            <div className={playerDisplayStyles.greenTeam}>
+                <div className={playerDisplayStyles.greenPlayerName}>
 
                     <h2>Green Player Name</h2>
                 </div>
-                <div class="greenPlayerScore">
+                <div className={playerDisplayStyles.greenPlayerScore}>
 
                     <h2>Green Player Score</h2>
                 </div>

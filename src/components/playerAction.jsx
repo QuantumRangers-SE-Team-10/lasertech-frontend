@@ -1,12 +1,12 @@
-import "/src/css/playerAction.css"
+import playerActionStyles from "../css/playerAction.module.css"
 
 const PlayerAction = () => {
     return (
         <div>
-            <div className="playerAction">
+            <div className={playerActionStyles.playerAction}>
                 <h2>Player Action</h2>
             </div>
-            <div className="playerName">
+            <div className={playerActionStyles.playerName}>
                 <h2>Player Name</h2>
             </div>
         </div>

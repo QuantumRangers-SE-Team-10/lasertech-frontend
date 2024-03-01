@@ -1,7 +1,6 @@
 import { useSearchParams } from "react-router-dom";
 import { useEffect, useState } from "react";
-import "/src/css/Game.css";
-import "/src/components/playerAction.jsx";
+import gameStyles from "/src/css/game.module.css";
 import PlayerDisplay from "/src/components/playerDisplay.jsx";
 import PlayerAction from "/src/components/playerAction.jsx";
 
