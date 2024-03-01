@@ -1,9 +1,10 @@
 .window {
   width: 100%;
   padding: 20px;
-  border: 1px solid #ccc;
+  border: 1px solid #ecc601;
   color: #f9f9f9;
   border-radius: 5px;
+  box-shadow: 0 0 5px #FFF, 0 0 10px #FFF, 0 0 15px #FFF, 0 0 20px #ecc601, 0 0 30px #ecc601, 0 0 40px #ecc601, 0 0 55px #ecc601, 0 0 75px #ecc601;
   background-color: #222;
   margin-bottom: 20px;
 }
@@ -12,6 +13,9 @@
   padding-bottom: 10px;
   border-bottom: 1px solid #ccc;
   margin-bottom: 10px;
+  font-family: "Trebuchet MS", sans-serif;
+  font-size: 30px;
+  font-weight: bold;
 }
 
 .window-header h2 {
@@ -20,6 +24,7 @@
 
 .window-content {
   margin-bottom: 20px;
+  font-family: "Trebuchet MS", sans-serif;
 }
 
 .columns {
@@ -118,4 +123,18 @@ input {
 
 label {
   margin-right: 5px;
+}
+
+.redteam {
+  color: red;
+}
+
+.greenteam {
+  color: green;
+}
+
+.redteam,
+.greenteam {
+  font-size: 30px;
+  font-weight: bold;
 }
