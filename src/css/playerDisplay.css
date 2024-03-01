@@ -9,18 +9,41 @@
 
 .playerDisplay {
     display: grid;
-    grid-template-areas:
+    
+    /* grid-template-areas:
         'redPlayerName redPlayerName redPlayerName redPlayerName redPlayerScore redPlayerScore greenPlayerName greenPlayerName greenPlayerName greenPlayerName greenPlayerScore greenPlayerScore'
         'redPlayerName redPlayerName redPlayerName redPlayerName redPlayerScore redPlayerScore greenPlayerName greenPlayerName greenPlayerName greenPlayerName greenPlayerScore greenPlayerScore'
         'redPlayerName redPlayerName redPlayerName redPlayerName redPlayerScore redPlayerScore greenPlayerName greenPlayerName greenPlayerName greenPlayerName greenPlayerScore greenPlayerScore'
         'redPlayerName redPlayerName redPlayerName redPlayerName redPlayerScore redPlayerScore greenPlayerName greenPlayerName greenPlayerName greenPlayerName greenPlayerScore greenPlayerScore'
-        'redPlayerName redPlayerName redPlayerName redPlayerName redPlayerScore redPlayerScore greenPlayerName greenPlayerName greenPlayerName greenPlayerName greenPlayerScore greenPlayerScore';
-    grid-template-columns: repeat(12, 1fr);
-    grid-template-rows: repeat(5, 1fr);
+        'redPlayerName redPlayerName redPlayerName redPlayerName redPlayerScore redPlayerScore greenPlayerName greenPlayerName greenPlayerName greenPlayerName greenPlayerScore greenPlayerScore'; */
+   
     grid-area: playerDisplay;
     gap: 5px;
     margin-top: 10px;
     margin-bottom: 10px;
+    
+    
+}
+
+.redTeam {
+    background-color: red;
+    grid-area: redTeam;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    grid-column: span 6;
+    border-right: 5px solid black;
+    margin-right: 5px;
+}
+
+.greenTeam {
+    background-color: green;
+    grid-area: greenTeam;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    grid-column: span 6;
+    border-left: 5px solid black;
 }
 
 .redPlayerName {
@@ -29,8 +52,8 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    grid-column-start: 1;
-    grid-column-end: 4;
+    grid-column: span 4;
+    margin-right: 5px;
 
 
 }
@@ -41,10 +64,9 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    grid-column-start: 4;
-    grid-column-end: 7;
+    grid-column: span 2;
 
-    border-right: 5px solid black;
+   
 
 }
 
@@ -54,8 +76,8 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    grid-column-start: 7;
-    grid-column-end: 10;
+    grid-column: span 4;
+    margin-right:5px;
 
 
 }

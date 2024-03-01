@@ -13,38 +13,19 @@ const Game = () => {
             <div className="window-header">
                 <h1>Game</h1>
             </div>
-            <div className="redTeam">
-                <h2>Red Team</h2>
-            </div>
-            <div className="greenTeam">
-                <h2>Green Team</h2>
-            </div>
             <PlayerDisplay />
-            {/* <div className = "redPlayerName">
-        <h2>Red Player Name</h2>
-        </div>
-        <div className = "redPlayerScore">
-        <h2>Red Player Score</h2>
-        </div>
-        <div className = "greenTeam">
-        <h2>Green Team</h2>
-        </div>
-        <div className = "greenPlayerName">
-            <h2> Green Player Name</h2>
-        </div> 
-        <div className = "greenPlayerScore">
-            <h2> Green Player Score</h2>
-    </div>*/}
             <div className="playerAction">
-                <h2>Player Action</h2>
+                <h3>Player Action</h3>
             </div>
             <div className="playerName">
-                <h2>Player Name</h2>
+                <h3>Player Name</h3>
             </div>
             <div className="timeRemaining">
-                <h2>Time Remaining</h2>
+                <h4>Time Remaining</h4>
             </div>
         </div>
+
+
     );
 };
 
