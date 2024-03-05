@@ -21,7 +21,6 @@
 
 .redTeam {
     /* display: grid; */
-    /* grid: repeat(2, auto) / repeat(6, 1fr); */
     background-color: red;
     grid-column: span 6;
 }
@@ -46,7 +45,6 @@
 
 .greenTeam {
     /* display: grid; */
-    /* grid: repeat(2, auto) / repeat(6, 1fr); */
     background-color: green;
     grid-column: span 6;
 }

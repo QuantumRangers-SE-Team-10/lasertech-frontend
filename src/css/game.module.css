@@ -28,8 +28,6 @@
 .playerDisplay {
   grid-column: span 12;
   grid-row-start: 3
-    
-    
 }
 
 .playerName{
@@ -47,5 +45,5 @@
   grid-column: span 12;
   /* align-items: right; */
   text-align: right;
-  margin: 0px 20px;
+  margin: 0 20px;
 }
