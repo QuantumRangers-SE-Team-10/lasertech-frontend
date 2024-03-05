@@ -1,71 +1,69 @@
 /* stylelint-disable declaration-block-no-redundant-longhand-properties */
-.window {
-    display:flex;
-    padding: 20px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    margin-bottom: 20px;
-
-}
 
 .playerDisplay {
     display: grid;
-    grid-template-areas:
-        'redPlayerName redPlayerName redPlayerName redPlayerName redPlayerScore redPlayerScore greenPlayerName greenPlayerName greenPlayerName greenPlayerName greenPlayerScore greenPlayerScore'
-        'redPlayerName redPlayerName redPlayerName redPlayerName redPlayerScore redPlayerScore greenPlayerName greenPlayerName greenPlayerName greenPlayerName greenPlayerScore greenPlayerScore'
-        'redPlayerName redPlayerName redPlayerName redPlayerName redPlayerScore redPlayerScore greenPlayerName greenPlayerName greenPlayerName greenPlayerName greenPlayerScore greenPlayerScore'
-        'redPlayerName redPlayerName redPlayerName redPlayerName redPlayerScore redPlayerScore greenPlayerName greenPlayerName greenPlayerName greenPlayerName greenPlayerScore greenPlayerScore'
-        'redPlayerName redPlayerName redPlayerName redPlayerName redPlayerScore redPlayerScore greenPlayerName greenPlayerName greenPlayerName greenPlayerName greenPlayerScore greenPlayerScore';
-    grid-template-columns: repeat(12, 1fr);
-    grid-template-rows: repeat(5, 1fr);
-    grid-area: playerDisplay;
+    grid: repeat(2, auto) / repeat(12, 1fr);
     gap: 5px;
     margin-top: 10px;
     margin-bottom: 10px;
+    grid-column: span 12;
+ 
+}
+
+.teamLabel {
+    grid-column: span 6;
+    text-align: center;
+    align-items: center;
+    font-size: 1.5em;
+    font-weight: bold;
+    padding: 100px;
+}
+
+.redTeam {
+    /* display: grid; */
+    background-color: red;
+    grid-column: span 6;
+}
+
+.redPlayer {
+    display: grid;
+    grid: repeat(2, auto) / repeat(6, 1fr);
+    margin: 10px 20px;
 }
 
 .redPlayerName {
     background-color: red;
-    grid-area: redPlayerName;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    grid-column-start: 1;
-    grid-column-end: 4;
-
-
+    grid-column: span 4;
+    text-align: left;
 }
 
 .redPlayerScore {
     background-color: red;
-    grid-area: redPlayerScore;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    grid-column-start: 4;
-    grid-column-end: 7;
-    border-right: 5px solid black;
+    grid-column: span 2;
+    text-align: right;
+}
 
+.greenTeam {
+    /* display: grid; */
+    background-color: green;
+    grid-column: span 6;
+}
+
+.greenPlayer {
+    display: grid;
+    grid: repeat(2, auto) / repeat(6, 1fr);
+    margin: 10px 20px;
 }
 
 .greenPlayerName {
     background-color: green;
-    grid-area: greenPlayerName;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    grid-column-start: 7;
-    grid-column-end: 10;
-
-
+    grid-column: span 4;
+    text-align: left;
 }
 
 .greenPlayerScore {
-    grid-area: greenPlayerScore;
     background-color: green;
-    display: flex;
-    justify-content: center;
-    align-items: center;
     grid-column: span 2;
+    text-align: right;
 
 }
