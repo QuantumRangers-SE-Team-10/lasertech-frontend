@@ -8,6 +8,8 @@ const Game = () => {
 
     const [countdown, setCountdown] = useState(30);
     const [timeRemaining, setTimeRemaining] = useState(360);
+    const [searchParams] = useSearchParams();
+    const [gameId] = useState(searchParams.get('id'));
 
     useEffect(() => {
         
@@ -41,15 +43,15 @@ const Game = () => {
             <div className={gameStyles.windowHeader}>
                 <h1>Game</h1>
             </div>
-            <PlayerDisplay />
-            <PlayerAction />
-            <div className={gameStyles.timeRemaining}>
+            <PlayerDisplay gameId={gameId} />
+            {/* <PlayerAction /> */}
+            {/* <div className={gameStyles.timeRemaining}>
                 <h4>Time Remaining: {timeRemaining} seconds</h4>
-            </div>
-            <div className={gameStyles.countdown}>
+            </div> */}
+            <div className={gameStyles.timeRemaining}>
                 <h4>Countdown: {countdown} seconds</h4>
+            </div>
         </div>
-    </div>
 
     );
 };

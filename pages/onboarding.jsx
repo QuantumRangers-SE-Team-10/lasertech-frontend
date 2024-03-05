@@ -1,12 +1,13 @@
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { addPlayer, getPlayer } from "../api/player";
 import { addPlayerSession } from "../api/playerSession";
 import { addGame } from "../api/game";
 
 import onboardingStyles from "../src/css/onboarding.module.css";
-// import "/src/css/particle.css";
 
 const Onboarding = () => {
+  const navigate = useNavigate();
   const [playerID, setPlayerID] = useState("");
   const [redTeamPlayers, setRedTeamPlayers] = useState(
     Array.from(Array(20).keys()).map(() => ({
@@ -22,30 +23,14 @@ const Onboarding = () => {
       equipmentId: "",
     }))
   );
-  // const [selectedTeam, setSelectedTeam] = useState("Red");
   const [game, setGame] = useState();
   const [codename, setCodename] = useState("");
   const [redTeamIndex, setRedTeamIndex] = useState(0);
   const [greenTeamIndex, setGreenTeamIndex] = useState(0);
   const [equipmentId, setEquipmentId] = useState("");
-  // const [isValid, setIsValid] = useState(true);
   const [showCodeName, setShowCodeName] = useState(false);
   const [isAddButtonDisabled, setAddButtonDisabled] = useState(true);
   const [isCodenameInputDisabled, setCodenameInputDisabled] = useState(true);
-
-  // useEffect(async () => {
-  //   const game = await addGame(); // TODO
-  //   console.log(game);
-  //   // const fetchGame = async () => {
-  //   //   try {
-  //   //     const game = await addGame();
-  //   //     console.log("Game ID: ", game.id);
-  //   //   } catch (error) {
-  //   //     console.error("Error fetching game: ", error);
-  //   //   }
-  //   // };
-  //   // fetchGame();
-  // }, []);
 
   useEffect(() => {
     async function add_Game() {
@@ -76,7 +61,6 @@ const Onboarding = () => {
         setShowCodeName(true);
         setCodenameInputDisabled(true);
       } else {
-        // setFetchedCodename('');
         setCodename("");
         setShowCodeName(true);
         setCodenameInputDisabled(false);
@@ -84,11 +68,9 @@ const Onboarding = () => {
     } catch (error) {
       console.error("Error fetching codename:", error);
       setShowCodeName(true); // Show the input field for manual entry
-      // setCodename(''); // Reset codename state
     }
     console.log("Codename: ", playerID);
     setAddButtonDisabled(false);
-    // setCodenameInputDisabled(false);
   };
 
   const getBorderColor = (player) => {
@@ -127,39 +109,13 @@ const Onboarding = () => {
   };
 
   const handleAddToRedTeam = () => {
-    // setSelectedTeam("Red"); 
     setShowCodeName(false);
     handleSubmitPlayer("Red");
   };
 
   const handleAddToGreenTeam = () => {
-    // setSelectedTeam("Green");
     setShowCodeName(false);
     handleSubmitPlayer("Green");
-  };
-
-  const setEquipmentID = (index, value, team) => {
-    if (!value || !/^\d+$/.test(value)) {
-      console.log("Invalid equipment ID");
-      setEquipmentId("");
-      return;
-    }
-
-    const updatedPlayers =
-      team === "Red" ? [...redTeamPlayers] : [...greenTeamPlayers];
-
-    updatedPlayers[index] = {
-      ...updatedPlayers[index],
-      equipmentId: value,
-    };
-
-    if (team === "Red") {
-      setRedTeamPlayers(updatedPlayers);
-    } else if (team === "Green") {
-      setGreenTeamPlayers(updatedPlayers);
-    }
-
-    setEquipmentId("");
   };
 
   const handleClearGame = () => {
@@ -223,20 +179,17 @@ const Onboarding = () => {
     setCodename("");
   };
 
-  const updateCodeName = async (playerID) => {
-    if (!playerID) {
-      return;
-    }
-    try {
-      const existingCodename = await fetchCodename(playerID);
-      setCodename(existingCodename);
-      //setShowCodeName(!!existingCodename); // Set showCodeName based on whether codename exists
-    } catch (error) {
-      console.log("Error fetching codename: ", error);
-      //setCodename(''); // Reset codename if there's an error
-      //setShowCodeName(false); // Hide the codename input if there's an error
-    }
-  };
+  // const updateCodeName = async (playerID) => {
+  //   if (!playerID) {
+  //     return;
+  //   }
+  //   try {
+  //     const existingCodename = await fetchCodename(playerID);
+  //     setCodename(existingCodename);
+  //   } catch (error) {
+  //     console.log("Error fetching codename: ", error);
+  //   }
+  // };
 
   const handleSubmit = async () => {
     const players = [...redTeamPlayers, ...greenTeamPlayers];
@@ -246,25 +199,15 @@ const Onboarding = () => {
       (player) => player.playerID !== "" && player.codename !== ""
     );
 
-    // filteredPlayers.forEach(async (player) => {
-    //   await addPlayer(player.playerID, player.codename);
-    // });
-
     filteredPlayers.forEach(async (player) => {
       if (player.equipmentId && player.codename !== "" && player.playerID !== "") {
-        // if (player.team === "Red") {
-        //   setEquipmentID(redTeamIndex, player.equipmentId, "Red");
-        // } else if (player.team === "Green") {
-        //   setEquipmentID(greenTeamIndex, player.equipmentId, "Green");
-        // }
-        const pS = await addPlayerSession(player.playerID, game.gameID, player.equipmentId, player.team);
+        const team = player.equipmentId % 2 === 0 ? "Green" : "Red";
+        const pS = await addPlayerSession(player.playerID, game.gameID, player.equipmentId, team);
         console.log(pS);
       }
     });
 
-    // console.log(game);
-
-    // console.log(filteredPlayers);
+    navigate(`/game?id=${game.gameID}`);
   };
 
   return (
@@ -284,7 +227,6 @@ const Onboarding = () => {
                 setAddButtonDisabled(true);
                 setCodenameInputDisabled(true);
                 setCodename("");
-                // setShowCodeName(false);
               }}
               placeholder="Player ID"
             />
@@ -306,7 +248,6 @@ const Onboarding = () => {
               <input
                 type="text"
                 value={codename}
-                // readOnly={showCodeName && codename !== ''}
                 onChange={(e) => setCodename(e.target.value)}
                 placeholder="Enter Codename"
                 style={{
@@ -418,7 +359,6 @@ const Onboarding = () => {
       <div className={onboardingStyles.hotkeys}>
         <span style={{gridColumn: "span 2"}}></span>
         <button onClick={handleSubmit}>Submit</button>
-        {/* <button onClick={() => console.log("Start Game")}>Start Game</button> */}
         <button onClick={handleClearGame}>Clear Game</button>
       </div>
     </div>

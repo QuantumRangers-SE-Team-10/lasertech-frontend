@@ -2,6 +2,7 @@
 
 .playerDisplay {
     display: grid;
+    grid: repeat(2, auto) / repeat(12, 1fr);
     gap: 5px;
     margin-top: 10px;
     margin-bottom: 10px;
@@ -9,41 +10,62 @@
  
 }
 
-.redTeam {
-    background-color: red;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+.teamLabel {
     grid-column: span 6;
-    border-right: 5px solid black;
+    text-align: center;
+    align-items: center;
+    font-size: 1.5em;
+    font-weight: bold;
+    padding: 100px;
+}
+
+.redTeam {
+    /* display: grid; */
+    /* grid: repeat(2, auto) / repeat(6, 1fr); */
+    background-color: red;
+    grid-column: span 6;
+}
+
+.redPlayer {
+    display: grid;
+    grid: repeat(2, auto) / repeat(6, 1fr);
+    margin: 10px 20px;
 }
 
 .redPlayerName {
     background-color: red;
     grid-column: span 4;
-
-
+    text-align: left;
 }
 
 .redPlayerScore {
     background-color: red;
-   
     grid-column: span 2;
-    border-right: 5px solid black;
+    text-align: right;
+}
 
+.greenTeam {
+    /* display: grid; */
+    /* grid: repeat(2, auto) / repeat(6, 1fr); */
+    background-color: green;
+    grid-column: span 6;
+}
+
+.greenPlayer {
+    display: grid;
+    grid: repeat(2, auto) / repeat(6, 1fr);
+    margin: 10px 20px;
 }
 
 .greenPlayerName {
     background-color: green;
-   
     grid-column: span 4;
-
+    text-align: left;
 }
 
 .greenPlayerScore {
-    grid-area: greenPlayerScore;
     background-color: green;
-   
     grid-column: span 2;
+    text-align: right;
 
 }
