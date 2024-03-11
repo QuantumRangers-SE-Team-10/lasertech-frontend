@@ -256,6 +256,17 @@ const Onboarding = () => {
                 }}
                 disabled={isCodenameInputDisabled}
               />
+              <input
+                type="text"
+                value={equipmentId}
+                onChange={(e) => setEquipmentId(e.target.value)}
+                placeholder="Enter Equipment ID"
+                style={{
+                   backgroundColor: isCodenameInputDisabled ? "#aaa" : "#f9f9f9",
+                    borderColor: isCodenameInputDisabled ? "#aaa" : "#f9f9f9",
+                   }}
+                disabled={isCodenameInputDisabled}
+              />
             </div>
           )}
           <div className={onboardingStyles.buttonContainer}>
