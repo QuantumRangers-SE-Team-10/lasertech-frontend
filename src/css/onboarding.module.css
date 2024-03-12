@@ -132,15 +132,19 @@ label {
 }
 
 .redTeam {
-  color: red;
+  width: 600px;
+  height: 100px;
+  object-fit: cover;
 }
 
 .greenTeam {
-  color: green;
+  width: 600px;
+  height: 100px;
+  object-fit: cover;
 }
 
-.redTeam,
+/* .redTeam,
 .greenTeam {
   font-size: 30px;
   font-weight: bold;
-}
+} */

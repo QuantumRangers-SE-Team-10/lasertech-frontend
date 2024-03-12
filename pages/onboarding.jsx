@@ -287,7 +287,12 @@ const Onboarding = () => {
         </div>
         <div className={onboardingStyles.columns}>
           <div className={onboardingStyles.column}>
-            <h3 className={onboardingStyles.redTeam}>Red Team</h3>
+          <img
+                src="../src/assets/Red Team.png"
+                alt="Red Team"
+                className={onboardingStyles.redTeam}
+              />
+            {/* <h3 className={onboardingStyles.redTeam}>Red Team</h3> */}
             {redTeamPlayers.map((player, index) => (
               <div key={index}>
                 <input
@@ -321,7 +326,12 @@ const Onboarding = () => {
             ))}
           </div>
           <div className={onboardingStyles.column}>
-            <h3 className={onboardingStyles.greenTeam}>Green Team</h3>
+          <img
+                src="../src/assets/Green Team.png"
+                alt="Green Team"
+                className={onboardingStyles.greenTeam}
+              />
+            {/* <h3 className={onboardingStyles.greenTeam}>Green Team</h3> */}
             {greenTeamPlayers.map((player, index) => (
               <div key={index}>
                 <input
