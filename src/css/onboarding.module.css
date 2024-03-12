@@ -42,13 +42,15 @@
 }
 
 .column input[id="codename"],
-.column input[id="playerID"] {
+.column input[id="playerID"],
+.column input[id="equipmentId"] {
   background-color: #aaa;
   border-color: #aaa;
 }
 
 .column input[id="codename"]::placeholder,
-.column input[id="playerID"]::placeholder {
+.column input[id="playerID"]::placeholder,
+.column input[id="equipmentId"]::placeholder {
   color: #eee;
 }
 

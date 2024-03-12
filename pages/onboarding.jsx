@@ -89,8 +89,10 @@ const Onboarding = () => {
      if( !isNaN(equipmentIdValue) ) {
       if(equipmentIdValue % 2 !== 0) {
         setAddRedButtonDisabled(false)
+        validateEquipmentId(value, "Red", redTeamIndex);
       } else if (equipmentIdValue % 2 === 0) {
         setAddGreenButtonDisabled(false)
+        validateEquipmentId(value, "Green", greenTeamIndex);
       }
     }
   }
@@ -109,6 +111,7 @@ const Onboarding = () => {
         isValid,
         
       };
+      //handleSubmitPlayer("Red");
       //setAddRedButtonDisabled(false)
       setRedTeamPlayers(updatedPlayers);
     } else if (team === "Green") {
@@ -118,14 +121,17 @@ const Onboarding = () => {
         equipmentId: value,
         isValid,
       };
+     // handleSubmitPlayer("Green");
       //setAddGreenButtonDisabled(false)
-      setGreenTeamPlayers(updatedPlayers);
+     setGreenTeamPlayers(updatedPlayers);
     }
   };
 
   const handleAddToRedTeam = () => {
+    
     setShowCodeName(false);
     handleSubmitPlayer("Red");
+    
   };
 
   const handleAddToGreenTeam = () => {
@@ -194,6 +200,7 @@ const Onboarding = () => {
     // Clear input fields after submission
     setPlayerID("");
     setCodename("");
+    setEquipmentId("");
   };
 
   // const updateCodeName = async (playerID) => {
@@ -278,11 +285,12 @@ const Onboarding = () => {
                 value={equipmentId}
                 onChange={(e) => {
                   setEquipmentId(e.target.value);
-                  validateTeam(e.target.value);
-                }}
-                onBlur = {(e) => {
                   setAddGreenButtonDisabled(true);
                   setAddRedButtonDisabled(true);
+                  //validateTeam(e.target.value);
+                  //validateEquipmentId(e.target.value, "Red", redTeamIndex);
+                }}
+                onBlur = {(e) => {
                   validateTeam(e.target.value);
                 }}
                 placeholder="Enter Equipment ID"
@@ -298,7 +306,11 @@ const Onboarding = () => {
             <span style={{gridColumn: "span 3"}}></span>
             <button
               className={onboardingStyles.addTeamButton}
-              onClick={handleAddToRedTeam}
+              onClick={(e) => {
+                validateEquipmentId(equipmentId, "Red", redTeamIndex);
+                handleSubmitPlayer("Red");
+                //handleAddToRedTeam();
+                }}
               disabled={isAddRedButtonDisabled}
               style={{
                 color: "red",
@@ -309,7 +321,10 @@ const Onboarding = () => {
             </button>
             <button
               className={onboardingStyles.addTeamButton}
-              onClick={handleAddToGreenTeam}
+              onClick={(e) => { validateEquipmentId(equipmentId, "Green", greenTeamIndex);
+              handleSubmitPlayer("Green");
+                //handleAddToGreenTeam
+              }}
               disabled={isAddGreenButtonDisabled}
               style={{
                 color: "green",
@@ -348,10 +363,11 @@ const Onboarding = () => {
                   id="equipmentId"
                   type="text"
                   value={player.equipmentId}
-                  onBlur={(e) => handleEquipmentIdChange(player.equipmentId, "Red", index)}
+                  readOnly
+                  //onBlur={(e) => handleEquipmentIdChange(player.equipmentId, "Red", index)}
                   placeholder="Equipment ID"
                   disabled
-                  style={{ borderColor: getBorderColor(player) }}
+                  //style={{ borderColor: getBorderColor(player) }}
                 />
               </div>
             ))}
@@ -382,10 +398,13 @@ const Onboarding = () => {
                   id="equipmentId"
                   type="text"
                   value={player.equipmentId}
-                  onChange={(e) => handleEquipmentIdChange(e, "Green", index)}
-                  onBlur={(e) => handleBlur(e, "Green", index)}
-                  placeholder="Equipment ID"
-                  style={{ borderColor: getBorderColor(player) }}
+                  readOnly
+                  placeholder = "Equipment ID"
+                  
+                  // onChange={(e) => handleEquipmentIdChange(e, "Green", index)}
+                  // onBlur={(e) => handleBlur(e, "Green", index)}
+                  // placeholder="Equipment ID"
+                  // style={{ borderColor: getBorderColor(player) }}
                 />
               </div>
             ))}
