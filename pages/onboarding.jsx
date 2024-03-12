@@ -29,7 +29,8 @@ const Onboarding = () => {
   const [greenTeamIndex, setGreenTeamIndex] = useState(0);
   const [equipmentId, setEquipmentId] = useState("");
   const [showCodeName, setShowCodeName] = useState(false);
-  const [isAddButtonDisabled, setAddButtonDisabled] = useState(true);
+  const [isAddGreenButtonDisabled, setAddGreenButtonDisabled] = useState(true);
+  const [isAddRedButtonDisabled, setAddRedButtonDisabled] = useState(true);
   const [isCodenameInputDisabled, setCodenameInputDisabled] = useState(true);
 
   useEffect(() => {
@@ -70,7 +71,7 @@ const Onboarding = () => {
       setShowCodeName(true); // Show the input field for manual entry
     }
     console.log("Codename: ", playerID);
-    setAddButtonDisabled(false);
+    //setAddButtonDisabled(false);
   };
 
   const getBorderColor = (player) => {
@@ -82,6 +83,17 @@ const Onboarding = () => {
       return "red"; // Invalid equipment ID
     }
   };
+
+  const validateTeam = (value) => {
+    const equipmentIdValue = parseInt(value);
+     if( !isNaN(equipmentIdValue) ) {
+      if(equipmentIdValue % 2 !== 0) {
+        setAddRedButtonDisabled(false)
+      } else if (equipmentIdValue % 2 === 0) {
+        setAddGreenButtonDisabled(false)
+      }
+    }
+  }
 
   const validateEquipmentId = (value, team, index) => {
     const equipmentIdValue = parseInt(value);
@@ -95,7 +107,9 @@ const Onboarding = () => {
         ...updatedPlayers[index],
         equipmentId: value,
         isValid,
+        
       };
+      //setAddRedButtonDisabled(false)
       setRedTeamPlayers(updatedPlayers);
     } else if (team === "Green") {
       const updatedPlayers = [...greenTeamPlayers];
@@ -104,6 +118,7 @@ const Onboarding = () => {
         equipmentId: value,
         isValid,
       };
+      //setAddGreenButtonDisabled(false)
       setGreenTeamPlayers(updatedPlayers);
     }
   };
@@ -138,7 +153,9 @@ const Onboarding = () => {
   };
 
   const handleSubmitPlayer = async (team) => {
-    setAddButtonDisabled(true);
+    //setAddButtonDisabled(true);
+    setAddGreenButtonDisabled(true);
+    setAddRedButtonDisabled(true);
     if (!playerID || !codename) {
       console.log("Invalid player");
       return;
@@ -224,7 +241,7 @@ const Onboarding = () => {
               value={playerID}
               onChange={(e) => {
                 setPlayerID(e.target.value);
-                setAddButtonDisabled(true);
+                //setAddButtonDisabled(true);
                 setCodenameInputDisabled(true);
                 setCodename("");
               }}
@@ -259,12 +276,20 @@ const Onboarding = () => {
               <input
                 type="text"
                 value={equipmentId}
-                onChange={(e) => setEquipmentId(e.target.value)}
+                onChange={(e) => {
+                  setEquipmentId(e.target.value);
+                  validateTeam(e.target.value);
+                }}
+                onBlur = {(e) => {
+                  setAddGreenButtonDisabled(true);
+                  setAddRedButtonDisabled(true);
+                  validateTeam(e.target.value);
+                }}
                 placeholder="Enter Equipment ID"
                 style={{
-                   backgroundColor: isCodenameInputDisabled ? "#aaa" : "#f9f9f9",
-                    borderColor: isCodenameInputDisabled ? "#aaa" : "#f9f9f9",
-                   }}
+                  backgroundColor: isCodenameInputDisabled ? "#aaa" : "#f9f9f9",
+                  borderColor: isCodenameInputDisabled ? "#aaa" : "#f9f9f9",
+                }}
                 disabled={isCodenameInputDisabled}
               />
             </div>
@@ -274,10 +299,10 @@ const Onboarding = () => {
             <button
               className={onboardingStyles.addTeamButton}
               onClick={handleAddToRedTeam}
-              disabled={isAddButtonDisabled}
+              disabled={isAddRedButtonDisabled}
               style={{
                 color: "red",
-                backgroundColor: isAddButtonDisabled ? "#aaa" : "#f9f9f9",
+                backgroundColor: isAddRedButtonDisabled ? "#aaa" : "#f9f9f9",
               }}
             >
               Add to Red Team
@@ -285,10 +310,10 @@ const Onboarding = () => {
             <button
               className={onboardingStyles.addTeamButton}
               onClick={handleAddToGreenTeam}
-              disabled={isAddButtonDisabled}
+              disabled={isAddGreenButtonDisabled}
               style={{
                 color: "green",
-                backgroundColor: isAddButtonDisabled ? "#aaa" : "#f9f9f9",
+                backgroundColor: isAddGreenButtonDisabled ? "#aaa" : "#f9f9f9",
               }}
             >
               Add to Green Team
@@ -323,9 +348,9 @@ const Onboarding = () => {
                   id="equipmentId"
                   type="text"
                   value={player.equipmentId}
-                  onChange={(e) => handleEquipmentIdChange(e, "Red", index)}
-                  onBlur={(e) => handleBlur(e, "Red", index)}
+                  onBlur={(e) => handleEquipmentIdChange(player.equipmentId, "Red", index)}
                   placeholder="Equipment ID"
+                  disabled
                   style={{ borderColor: getBorderColor(player) }}
                 />
               </div>
