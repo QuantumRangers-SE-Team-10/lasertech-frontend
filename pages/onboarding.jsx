@@ -3,6 +3,8 @@ import { useNavigate } from "react-router-dom";
 import { addPlayer, getPlayer } from "../api/player";
 import { addPlayerSession } from "../api/playerSession";
 import { addGame } from "../api/game";
+import PlayerInfo from "../src/components/playerInfo.jsx";
+import PlayerInput from "../src/components/playerInput.jsx";
 
 import onboardingStyles from "../src/css/onboarding.module.css";
 
@@ -43,70 +45,70 @@ const Onboarding = () => {
 
   // const [fetchedCodename, setFetchedCodename] = useState('');
 
-  const handleEquipmentIdChange = (e, team, index) => {
-    const value = e.target.value;
-    validateEquipmentId(value, team, index);
-  };
+  // const handleEquipmentIdChange = (e, team, index) => {
+  //   const value = e.target.value;
+  //   validateEquipmentId(value, team, index);
+  // };
 
-  const handleBlur = (e, team, index) => {
-    const value = e.target.value;
-    validateEquipmentId(value, team, index);
-  };
+  // const handleBlur = (e, team, index) => {
+  //   const value = e.target.value;
+  //   validateEquipmentId(value, team, index);
+  // };
 
-  const fetchCodename = async (playerID) => {
-    try {
-      const player = await getPlayer(playerID);
-      if (player) {
-        setCodename(player.codename);
-        setShowCodeName(true);
-        setCodenameInputDisabled(true);
-      } else {
-        setCodename("");
-        setShowCodeName(true);
-        setCodenameInputDisabled(false);
-      }
-    } catch (error) {
-      console.error("Error fetching codename:", error);
-      setShowCodeName(true); // Show the input field for manual entry
-    }
-    console.log("Codename: ", playerID);
-    setAddButtonDisabled(false);
-  };
+  // const fetchCodename = async (playerID) => {
+  //   try {
+  //     const player = await getPlayer(playerID);
+  //     if (player) {
+  //       setCodename(player.codename);
+  //       setShowCodeName(true);
+  //       setCodenameInputDisabled(true);
+  //     } else {
+  //       setCodename("");
+  //       setShowCodeName(true);
+  //       setCodenameInputDisabled(false);
+  //     }
+  //   } catch (error) {
+  //     console.error("Error fetching codename:", error);
+  //     setShowCodeName(true); // Show the input field for manual entry
+  //   }
+  //   console.log("Codename: ", playerID);
+  //   setAddButtonDisabled(false);
+  // };
 
-  const getBorderColor = (player) => {
-    if (player.equipmentId === "") {
-      return "gray"; // Empty box or invalid equipment ID
-    } else if (player.equipmentId !== "" && player.isValid) {
-      return "green"; // Valid equipment ID
-    } else {
-      return "red"; // Invalid equipment ID
-    }
-  };
+  // const getBorderColor = (player) => {
+  //   if (player.equipmentId === "") {
+  //     return "gray"; // Empty box or invalid equipment ID
+  //   } else if (player.equipmentId !== "" && player.isValid) {
+  //     return "green"; // Valid equipment ID
+  //   } else {
+  //     return "red"; // Invalid equipment ID
+  //   }
+  // };
 
-  const validateEquipmentId = (value, team, index) => {
-    const equipmentIdValue = parseInt(value);
-    const isValid =
-      !isNaN(equipmentIdValue) &&
-      ((team === "Green" && equipmentIdValue % 2 === 0) ||
-        (team === "Red" && equipmentIdValue % 2 !== 0));
-    if (team === "Red") {
-      const updatedPlayers = [...redTeamPlayers];
-      updatedPlayers[index] = {
-        ...updatedPlayers[index],
-        equipmentId: value,
-        isValid,
-      };
-      setRedTeamPlayers(updatedPlayers);
-    } else if (team === "Green") {
-      const updatedPlayers = [...greenTeamPlayers];
-      updatedPlayers[index] = {
-        ...updatedPlayers[index],
-        equipmentId: value,
-        isValid,
-      };
-      setGreenTeamPlayers(updatedPlayers);
-    }
-  };
+  // const validateEquipmentId = (value, team, index) => {
+  //   const equipmentIdValue = parseInt(value);
+  //   const isValid =
+  //     !isNaN(equipmentIdValue) &&
+  //     ((team === "Green" && equipmentIdValue % 2 === 0) ||
+  //       (team === "Red" && equipmentIdValue % 2 !== 0));
+  //   if (team === "Red") {
+  //     const updatedPlayers = [...redTeamPlayers];
+  //     updatedPlayers[index] = {
+  //       ...updatedPlayers[index],
+  //       equipmentId: value,
+  //       isValid,
+  //     };
+  //     setRedTeamPlayers(updatedPlayers);
+  //   } else if (team === "Green") {
+  //     const updatedPlayers = [...greenTeamPlayers];
+  //     updatedPlayers[index] = {
+  //       ...updatedPlayers[index],
+  //       equipmentId: value,
+  //       isValid,
+  //     };
+  //     setGreenTeamPlayers(updatedPlayers);
+  //   }
+  // };
 
   const handleAddToRedTeam = () => {
     setShowCodeName(false);
@@ -218,7 +220,8 @@ const Onboarding = () => {
       <div className={onboardingStyles.windowContent}>
         <div>
           <h3> Add Player</h3>
-          <div className={onboardingStyles.playerInput}>
+          <PlayerInput playerID={playerID} setPlayerID={setPlayerID} setAddButtonDisabled={setAddButtonDisabled} setCodename={setCodename} setShowCodeName={setShowCodeName} />
+          {/* <div className={onboardingStyles.playerInput}>
             <input
               type="number"
               value={playerID}
@@ -242,7 +245,7 @@ const Onboarding = () => {
                 className={onboardingStyles.magnifyingGlassIcon}
               />
             </span>
-          </div>
+          </div> */}
           {playerID && showCodeName && (
             <div className={onboardingStyles.playerInput}>
               <input
@@ -289,69 +292,71 @@ const Onboarding = () => {
           <div className={onboardingStyles.column}>
             <h3 className={onboardingStyles.redTeam}>Red Team</h3>
             {redTeamPlayers.map((player, index) => (
-              <div key={index}>
-                <input
-                  id="playerID"
-                  type="number"
-                  value={player.playerID}
-                  readOnly
-                  //onChange={(e) => handleRedTeamChange(index, 'playerID', e.target.value)}
-                  placeholder="ID Number"
-                  disabled
-                />
-                <input
-                  id="codename"
-                  type="text"
-                  value={player.codename}
-                  readOnly
-                  // onChange={(e) => handleRedTeamChange(index, 'codename', e.target.value)}
-                  placeholder="Codename"
-                  disabled
-                />
-                <input
-                  id="equipmentId"
-                  type="text"
-                  value={player.equipmentId}
-                  onChange={(e) => handleEquipmentIdChange(e, "Red", index)}
-                  onBlur={(e) => handleBlur(e, "Red", index)}
-                  placeholder="Equipment ID"
-                  style={{ borderColor: getBorderColor(player) }}
-                />
-              </div>
+              <PlayerInfo  player={player} index={index} redTeamPlayers={redTeamPlayers} greenTeamPlayers={greenTeamPlayers} setRedTeamPlayers={setRedTeamPlayers} setGreenTeamPlayers={setGreenTeamPlayers}/>
+              // <div key={index}>
+              //   <input
+              //     id="playerID"
+              //     type="number"
+              //     value={player.playerID}
+              //     readOnly
+              //     //onChange={(e) => handleRedTeamChange(index, 'playerID', e.target.value)}
+              //     placeholder="ID Number"
+              //     disabled
+              //   />
+              //   <input
+              //     id="codename"
+              //     type="text"
+              //     value={player.codename}
+              //     readOnly
+              //     // onChange={(e) => handleRedTeamChange(index, 'codename', e.target.value)}
+              //     placeholder="Codename"
+              //     disabled
+              //   />
+              //   <input
+              //     id="equipmentId"
+              //     type="text"
+              //     value={player.equipmentId}
+              //     onChange={(e) => handleEquipmentIdChange(e, "Red", index)}
+              //     onBlur={(e) => handleBlur(e, "Red", index)}
+              //     placeholder="Equipment ID"
+              //     style={{ borderColor: getBorderColor(player) }}
+              //   />
+              // </div>
             ))}
           </div>
           <div className={onboardingStyles.column}>
             <h3 className={onboardingStyles.greenTeam}>Green Team</h3>
             {greenTeamPlayers.map((player, index) => (
-              <div key={index}>
-                <input
-                  id="playerID"
-                  type="number"
-                  value={player.playerID}
-                  readOnly
-                  //onChange={(e) => handleGreenTeamChange(index, 'playerID', e.target.value)}
-                  placeholder="ID Number"
-                  disabled
-                />
-                <input
-                  id="codename"
-                  type="text"
-                  value={player.codename}
-                  readOnly
-                  //onChange={(e) => handleGreenTeamChange(index, 'codename', e.target.value)}
-                  placeholder="Codename"
-                  disabled
-                />
-                <input
-                  id="equipmentId"
-                  type="text"
-                  value={player.equipmentId}
-                  onChange={(e) => handleEquipmentIdChange(e, "Green", index)}
-                  onBlur={(e) => handleBlur(e, "Green", index)}
-                  placeholder="Equipment ID"
-                  style={{ borderColor: getBorderColor(player) }}
-                />
-              </div>
+              <PlayerInfo  player={player} index={index} redTeamPlayers={redTeamPlayers} greenTeamPlayers={greenTeamPlayers} setRedTeamPlayers={setRedTeamPlayers} setGreenTeamPlayers={setGreenTeamPlayers}/>
+              // <div key={index}>
+              //   <input
+              //     id="playerID"
+              //     type="number"
+              //     value={player.playerID}
+              //     readOnly
+              //     //onChange={(e) => handleGreenTeamChange(index, 'playerID', e.target.value)}
+              //     placeholder="ID Number"
+              //     disabled
+              //   />
+              //   <input
+              //     id="codename"
+              //     type="text"
+              //     value={player.codename}
+              //     readOnly
+              //     //onChange={(e) => handleGreenTeamChange(index, 'codename', e.target.value)}
+              //     placeholder="Codename"
+              //     disabled
+              //   />
+              //   <input
+              //     id="equipmentId"
+              //     type="text"
+              //     value={player.equipmentId}
+              //     onChange={(e) => handleEquipmentIdChange(e, "Green", index)}
+              //     onBlur={(e) => handleBlur(e, "Green", index)}
+              //     placeholder="Equipment ID"
+              //     style={{ borderColor: getBorderColor(player) }}
+              //   />
+              // </div>
             ))}
           </div>
         </div>
