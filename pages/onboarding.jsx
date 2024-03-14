@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { addPlayer, getPlayer } from "../api/player";
+//import { addPlayer, getPlayer } from "../api/player";
 import { addPlayerSession } from "../api/playerSession";
 import { addGame } from "../api/game";
 import PlayerInfo from "../src/components/playerInfo.jsx";
@@ -30,9 +30,9 @@ const Onboarding = () => {
   const [redTeamIndex, setRedTeamIndex] = useState(0);
   const [greenTeamIndex, setGreenTeamIndex] = useState(0);
   const [equipmentId, setEquipmentId] = useState("");
-  const [showCodeName, setShowCodeName] = useState(false);
-  const [isAddButtonDisabled, setAddButtonDisabled] = useState(true);
-  const [isCodenameInputDisabled, setCodenameInputDisabled] = useState(true);
+  // const [showCodeName, setShowCodeName] = useState(false);
+  // const [isAddButtonDisabled, setAddButtonDisabled] = useState(true);
+  // const [isCodenameInputDisabled, setCodenameInputDisabled] = useState(true);
 
   useEffect(() => {
     async function add_Game() {
@@ -110,15 +110,15 @@ const Onboarding = () => {
   //   }
   // };
 
-  const handleAddToRedTeam = () => {
-    setShowCodeName(false);
-    handleSubmitPlayer("Red");
-  };
+  // const handleAddToRedTeam = () => {
+  //   setShowCodeName(false);
+  //   handleSubmitPlayer("Red");
+  // };
 
-  const handleAddToGreenTeam = () => {
-    setShowCodeName(false);
-    handleSubmitPlayer("Green");
-  };
+  // const handleAddToGreenTeam = () => {
+  //   setShowCodeName(false);
+  //   handleSubmitPlayer("Green");
+  // };
 
   const handleClearGame = () => {
     setRedTeamPlayers(
@@ -139,47 +139,47 @@ const Onboarding = () => {
     setGreenTeamIndex(0);
   };
 
-  const handleSubmitPlayer = async (team) => {
-    setAddButtonDisabled(true);
-    if (!playerID || !codename) {
-      console.log("Invalid player");
-      return;
-    }
-    const playerIds = [...redTeamPlayers, ...greenTeamPlayers].map(
-      (player) => player.playerID
-    );
-    if (playerIds.includes(playerID)) {
-      // TODO: Handle this case
-      console.log("Player ID already exists");
-      return;
-    }
-    const newPlayer = { playerID, codename };
-    addPlayer(playerID, codename);
-    if (team === "Red") {
-      console.log("Red Team");
-      if (redTeamIndex !== -1) {
-        const updatedRedTeamPlayers = [...redTeamPlayers];
-        updatedRedTeamPlayers[redTeamIndex] = newPlayer; // Update existing player
-        setRedTeamPlayers(updatedRedTeamPlayers);
-        setRedTeamIndex(redTeamIndex + 1);
-      } else {
-        console.log("Player not found in the Red Team");
-      }
-    } else if (team === "Green") {
-      if (greenTeamIndex !== -1) {
-        const updatedGreenTeamPlayers = [...greenTeamPlayers];
-        updatedGreenTeamPlayers[greenTeamIndex] = newPlayer; // Update existing player
-        setGreenTeamPlayers(updatedGreenTeamPlayers);
-        setGreenTeamIndex(greenTeamIndex + 1);
-      } else {
-        console.log("Player not found in the Green Team");
-      }
-    }
+  // const handleSubmitPlayer = async (team) => {
+  //   setAddButtonDisabled(true);
+  //   if (!playerID || !codename) {
+  //     console.log("Invalid player");
+  //     return;
+  //   }
+  //   const playerIds = [...redTeamPlayers, ...greenTeamPlayers].map(
+  //     (player) => player.playerID
+  //   );
+  //   if (playerIds.includes(playerID)) {
+  //     // TODO: Handle this case
+  //     console.log("Player ID already exists");
+  //     return;
+  //   }
+  //   const newPlayer = { playerID, codename };
+  //   addPlayer(playerID, codename);
+  //   if (team === "Red") {
+  //     console.log("Red Team");
+  //     if (redTeamIndex !== -1) {
+  //       const updatedRedTeamPlayers = [...redTeamPlayers];
+  //       updatedRedTeamPlayers[redTeamIndex] = newPlayer; // Update existing player
+  //       setRedTeamPlayers(updatedRedTeamPlayers);
+  //       setRedTeamIndex(redTeamIndex + 1);
+  //     } else {
+  //       console.log("Player not found in the Red Team");
+  //     }
+  //   } else if (team === "Green") {
+  //     if (greenTeamIndex !== -1) {
+  //       const updatedGreenTeamPlayers = [...greenTeamPlayers];
+  //       updatedGreenTeamPlayers[greenTeamIndex] = newPlayer; // Update existing player
+  //       setGreenTeamPlayers(updatedGreenTeamPlayers);
+  //       setGreenTeamIndex(greenTeamIndex + 1);
+  //     } else {
+  //       console.log("Player not found in the Green Team");
+  //     }
+  //   }
 
-    // Clear input fields after submission
-    setPlayerID("");
-    setCodename("");
-  };
+  //   // Clear input fields after submission
+  //   setPlayerID("");
+  //   setCodename("");
+  // };
 
   // const updateCodeName = async (playerID) => {
   //   if (!playerID) {
@@ -218,9 +218,9 @@ const Onboarding = () => {
         <h2>Game Setup</h2>
       </div>
       <div className={onboardingStyles.windowContent}>
-        <div>
-          <h3> Add Player</h3>
-          <PlayerInput playerID={playerID} setPlayerID={setPlayerID} setAddButtonDisabled={setAddButtonDisabled} setCodename={setCodename} setShowCodeName={setShowCodeName} />
+        <PlayerInput playerID={playerID} setPlayerID={setPlayerID} setCodename={setCodename} codename={codename} redTeamPlayers={redTeamPlayers} setRedTeamPlayers={setRedTeamPlayers} greenTeamPlayers={greenTeamPlayers} setGreenTeamPlayers={setGreenTeamPlayers} redTeamIndex={redTeamIndex} setRedTeamIndex={setRedTeamIndex} greenTeamIndex={greenTeamIndex} setGreenTeamIndex={setGreenTeamIndex} />
+        {/* <div>
+          <h3> Add Player</h3> */}
           {/* <div className={onboardingStyles.playerInput}>
             <input
               type="number"
@@ -246,7 +246,7 @@ const Onboarding = () => {
               />
             </span>
           </div> */}
-          {playerID && showCodeName && (
+          {/* {playerID && showCodeName && (
             <div className={onboardingStyles.playerInput}>
               <input
                 type="text"
@@ -287,7 +287,7 @@ const Onboarding = () => {
             </button>
             <span style={{gridColumn: "span 3"}}></span>
           </div>
-        </div>
+        </div> */}
         <div className={onboardingStyles.columns}>
           <div className={onboardingStyles.column}>
             <h3 className={onboardingStyles.redTeam}>Red Team</h3>
