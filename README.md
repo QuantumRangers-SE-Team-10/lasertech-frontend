@@ -15,15 +15,16 @@ Tyler Cash | tcash1990 | Tyler Cash
 
 To run the project, you need to have Node.js (>v21.7.1) and npm installed on your machine.
 
-You will need an API key to connect to supabase
+You will need the DB _URL and DB_KEY key to connect to supabase
 - For Stother and TAs, check the Blackboard submission for the key.
 - Team Members can request a key from Shawn Ericksen on slack.
 
-Then put the key in a .env file. Template provided below.
+Then put the key in a .env.development.local file. Template provided below.
 
 ```
-# .env
-SUPABASE_API_KEY=
+# .env.development.local
+VITE_DB_URL=
+VITE_DB_KEY=
 ```
 
 Commands to run the project:
@@ -33,7 +34,7 @@ npm install
 npm run dev
 ```
 
-Our project uses the `concurrently` package to start both the React app and the server.cjs used for communicating the UDP messages.
+Our project uses the `concurrently` package to start both the React app and the server.cjs used for sending UDP messages.
 
 Go to http://localhost:5173/ to see the project running.
 
