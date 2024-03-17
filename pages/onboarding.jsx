@@ -57,7 +57,7 @@ const Onboarding = () => {
   const fetchCodename = async (playerID) => {
     try {
       const player = await getPlayer(playerID);
-      if (player) {
+      if (!player.error) {
         setCodename(player.codename);
         setShowCodeName(true);
         setCodenameInputDisabled(true);
@@ -70,7 +70,6 @@ const Onboarding = () => {
       console.error("Error fetching codename:", error);
       setShowCodeName(true); // Show the input field for manual entry
     }
-    console.log("Codename: ", playerID);
     //setAddButtonDisabled(false);
   };
 
@@ -189,9 +188,11 @@ const Onboarding = () => {
       return;
     }
     const newPlayer = { playerID, codename };
-    addPlayer(playerID, codename);
+    if (!isCodenameInputDisabled) {
+      await addPlayer(playerID, codename);
+    }
+    await addPlayerSession(playerID, game.id, equipmentId, team);
     if (team === "Red") {
-      console.log("Red Team");
       if (redTeamIndex !== -1) {
         const updatedRedTeamPlayers = [...redTeamPlayers];
         updatedRedTeamPlayers[redTeamIndex] = newPlayer; // Update existing player
@@ -231,7 +232,6 @@ const Onboarding = () => {
 
   const handleSubmit = async () => {
     const players = [...redTeamPlayers, ...greenTeamPlayers];
-    console.log(players);
 
     const filteredPlayers = players.filter(
       (player) => player.playerID !== "" && player.codename !== ""
@@ -240,12 +240,11 @@ const Onboarding = () => {
     filteredPlayers.forEach(async (player) => {
       if (player.equipmentId && player.codename !== "" && player.playerID !== "") {
         const team = player.equipmentId % 2 === 0 ? "Green" : "Red";
-        const pS = await addPlayerSession(player.playerID, game.gameID, player.equipmentId, team);
-        console.log(pS);
+        await addPlayerSession(player.playerID, game.id, player.equipmentId, team);
       }
     });
 
-    navigate(`/game?id=${game.gameID}`);
+    navigate(`/game?id=${game.id}`);
   };
 
   return (
@@ -308,11 +307,11 @@ const Onboarding = () => {
                     validateTeam(e.target.value);
                   }}
                   placeholder="Enter Equipment ID"
-                  style={{
-                    backgroundColor: isCodenameInputDisabled ? "#aaa" : "#f9f9f9",
-                    borderColor: isCodenameInputDisabled ? "#aaa" : "#f9f9f9",
-                  }}
-                  disabled={isCodenameInputDisabled}
+                  // style={{
+                  //   backgroundColor: isCodenameInputDisabled ? "#aaa" : "#f9f9f9",
+                  //   borderColor: isCodenameInputDisabled ? "#aaa" : "#f9f9f9",
+                  // }}
+                  // disabled={isCodenameInputDisabled}
                 />
               </div>
             </>

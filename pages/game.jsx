@@ -1,56 +1,41 @@
 import { useSearchParams } from "react-router-dom";
-import { useEffect, useState } from "react";
+import { useState, useMemo } from "react";
+
 import gameStyles from "../src/css/game.module.css";
+
 import PlayerDisplay from "../src/components/playerDisplay.jsx";
-import PlayerAction from "../src/components/playerAction.jsx";
+// import PlayerAction from "../src/components/playerAction.jsx";
+import Countdown from "../src/components/countdown.jsx";
+
+import { getGame } from "../api/game";
 
 const Game = () => {
-
-    const [countdown, setCountdown] = useState(30);
-    const [timeRemaining, setTimeRemaining] = useState(360);
+    const [game, setGame] = useState({});
     const [searchParams] = useSearchParams();
-    const [gameId] = useState(searchParams.get('id'));
+    useMemo(async () => {
+      const gameId = searchParams.get('id') || '';
+      const g = await getGame(gameId);
+      setGame(g);
+    }, [searchParams]);
 
-    useEffect(() => {
-        
-        const countdownInterval = setInterval(() => {
-            setCountdown(prevCountdown => prevCountdown - 1);
-        }, 1000);
-
-        if (countdown === 0) {
-             fetch(`/api/games/${gameId}`, {
-                 method: 'PUT',
-                 body: JSON.stringify({ status: 'active' }),
-                headers: {
-                     'Content-Type': 'application/json'
-                 }
-             });
-
-            const timeRemainingInterval = setInterval(() => {
-                setTimeRemaining(prevTime => prevTime - 1);
-            }, 1000);
-           
-            clearInterval(countdownInterval);
-        }
-        return () => {
-            clearInterval(countdownInterval);
-        };
-    }, [countdown])
-
-
+    if (game.error) {
+      return (
+        <div className={gameStyles.window}>
+          <div className={gameStyles.windowHeader}>
+            <h1>Game Not Found</h1>
+          </div>
+        </div>
+      )
+    }
+    
     return (
         <div className={gameStyles.window}>
             <div className={gameStyles.windowHeader}>
                 <h1>Game</h1>
             </div>
-            <PlayerDisplay gameId={gameId} />
+            {!!game.error || <PlayerDisplay game={game} />}
             {/* <PlayerAction /> */}
-            {/* <div className={gameStyles.timeRemaining}>
-                <h4>Time Remaining: {timeRemaining} seconds</h4>
-            </div> */}
-            <div className={gameStyles.timeRemaining}>
-                <h4>Countdown: {countdown} seconds</h4>
-            </div>
+            <Countdown startTime={30} gameTime={360} />
         </div>
 
     );

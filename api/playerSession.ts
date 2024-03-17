@@ -5,36 +5,29 @@ import querySupabase from "../apiSupabase/querySupabase";
 const route = "PlayerSession";
 
 const getPlayerSession = async (id: Number) => {
-    const response = await querySupabase(route, "get", id, []);
-    return response;
+  const response = await querySupabase(route, "get", id, []);
+  return response;
 };
 
 const getAllPlayerSessions = async () => {
-    return await querySupabase(route, "get", null, []);
+  const response = await querySupabase(route, "get", null, []);
+  return response;
 };
 
-const addPlayerSession = async (playerID: Number, gameID: Number, equipmentID: Number, team: String) => {
-  // const data = {
-  //   playerID: playerID,
-  //   gameID: gameID,
-  //   equipmentID: equipmentID,
-  //   team: team,
-  // };
-    const data = { playerID, gameID, equipmentID, team };
+const addPlayerSession = async (playerId: Number, gameId: Number, equipmentId: Number, team: String) => {
+  const data = { playerId, gameId, equipmentId, team };
   const response = await querySupabase(route, "post", null, data);
   return response;
 };
 
 const modifyPlayerSession = async (playerId: Number, codename: String) => {
-  const data = {
-    playerID: playerId,
-    codename: codename,
-  };
-    return await querySupabase(route, "put", null, data);
+  const data = { playerId, codename };
+  const response = await querySupabase(route, "put", null, data);
+  return response;
 };
 
 const deletePlayerSession = async (playerId: Number) => {
-    return await querySupabase(route, "delete", playerId, []);
+  return await querySupabase(route, "delete", playerId, []);
 };
 
 export {
