@@ -27,4 +27,7 @@ dist-ssr
 brew_casks
 brew_formulae
 
+bun.lockb
+dockerfile
+
 

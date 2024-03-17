@@ -14,7 +14,6 @@ const getAllGames = async () => {
 };
 
 const addGame = async () => {
-  // const data = {};
   const response = await querySupabase(route, "post", null, {});
   return response;
 };

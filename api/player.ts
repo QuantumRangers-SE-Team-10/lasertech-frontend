@@ -4,12 +4,12 @@ const route = "Player";
 
 const getPlayer = async (id: Number) => {
     const response = await querySupabase(route, "get", id, []);
-    console.log(response)
     return response;
 };
 
 const getAllPlayers = async () => {
-    return await querySupabase(route, "get", null, []);
+  const response = await querySupabase(route, "get", null, []);
+  return response;
 };
 
 const addPlayer = async (playerId: Number, codename: String) => {
@@ -17,7 +17,8 @@ const addPlayer = async (playerId: Number, codename: String) => {
     id: playerId,
     codename: codename,
   };
-    return await querySupabase(route, "post", null, data);
+  const response = await querySupabase(route, "post", null, data);
+  return response;
 };
 
 const modifyPlayer = async (playerId: Number, codename: String) => {
@@ -25,11 +26,13 @@ const modifyPlayer = async (playerId: Number, codename: String) => {
     id: playerId,
     codename: codename,
   };
-    return await querySupabase(route, "put", null, data);
-};
+  const response = await querySupabase(route, "put", null, data);
+  return response;
+}
 
 const deletePlayer = async (playerId: Number) => {
-    return await querySupabase(route, "delete", playerId, []);
+  const response = await querySupabase(route, "delete", playerId, []);
+  return response;
 };
 
 export { getPlayer, getAllPlayers, addPlayer, modifyPlayer, deletePlayer };
