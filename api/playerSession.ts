@@ -2,7 +2,7 @@ import query from "./query";
 import querySupabase from "../apiSupabase/querySupabase";
 
 
-const route = "PlayerSessions";
+const route = "PlayerSession";
 
 const getPlayerSession = async (id: Number) => {
     const response = await querySupabase(route, "get", id, []);

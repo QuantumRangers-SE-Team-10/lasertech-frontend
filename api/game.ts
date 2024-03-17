@@ -1,4 +1,4 @@
-import query from "./query";
+// import query from "./query";
 import querySupabase from "../apiSupabase/querySupabase";
 
 
@@ -7,7 +7,6 @@ const route = "Game";
 const getGame = async (id: Number) => {
   const response = await querySupabase(route, "get", id, []);
   return response;
-  // console.log(response.data);
 };
 
 const getAllGames = async () => {
@@ -15,11 +14,8 @@ const getAllGames = async () => {
 };
 
 const addGame = async () => {
-  // const data = {
-  //   gameId: gameId,
-  //   playerSessions: playerSessions,
-  // };
-  const response = await querySupabase(route, "post", null, []);
+  // const data = {};
+  const response = await querySupabase(route, "post", null, {});
   return response;
 };
 

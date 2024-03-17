@@ -1,7 +1,6 @@
-import query from "./query";
 import querySupabase from "../apiSupabase/querySupabase";
 
-const route = "Players";
+const route = "Player";
 
 const getPlayer = async (id: Number) => {
     const response = await querySupabase(route, "get", id, []);

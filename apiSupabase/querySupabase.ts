@@ -18,7 +18,7 @@ const querySupabase = async (
         if (method == "get") {
             const { data, error } = await supabase.from(table).select().eq('id', id)
             if (id) {
-                response = data.at(0)
+                response = data?.at(0) || { error: `${table} not found` };
             } else {
                 response = data
             }
@@ -34,7 +34,7 @@ const querySupabase = async (
             response = data
         }
         
-        console.log(response)
+        // console.log(response)
     } catch (error) {
         response = { error: error.response, data: null };
     }
