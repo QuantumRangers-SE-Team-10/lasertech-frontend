@@ -1,10 +1,14 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { addPlayer, getPlayer } from "../api/player";
-import { addPlayerSession } from "../api/playerSession";
-import { addGame } from "../api/game";
+import { addPlayer, getPlayer } from "../../api/player";
+import { addPlayerSession } from "../../api/playerSession";
+import { addGame } from "../../api/game";
 
-import onboardingStyles from "../src/css/onboarding.module.css";
+import onboardingStyles from "../css/onboarding.module.css";
+
+import io from 'socket.io-client';
+
+const socket = io('http://localhost:3000');
 
 const Onboarding = () => {
   const navigate = useNavigate();
@@ -192,6 +196,7 @@ const Onboarding = () => {
       await addPlayer(playerID, codename);
     }
     await addPlayerSession(playerID, game.id, equipmentId, team);
+    socket.emit('equipment-init', equipmentId);
     if (team === "Red") {
       if (redTeamIndex !== -1) {
         const updatedRedTeamPlayers = [...redTeamPlayers];

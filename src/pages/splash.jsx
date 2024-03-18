@@ -1,6 +1,6 @@
-import gameLogo from "../src/assets/logo.jpg";
-import splashStyling from "../src/css/splash.module.css";
-import particleStyling from "../src/css/particle.module.css";
+import gameLogo from "../assets/logo.jpg";
+import splashStyling from "../css/splash.module.css";
+import particleStyling from "../css/particle.module.css";
 
 export default Splash;
 
