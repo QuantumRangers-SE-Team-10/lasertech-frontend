@@ -10,8 +10,11 @@ const io = require('socket.io')(http, {
 });
 
 const dgram = require('dgram');
-const PORT = 7501;
+const BROADCAST_PORT = 7500;
+const LISTEN_PORT = 7501;
 const HOST = '0.0.0.0';
+// const ADDRESS = '192.168.1.255'
+const ADDRESS = '127.0.0.1'
 const server = dgram.createSocket('udp4');
 
 server.on('listening', () => {
@@ -24,26 +27,16 @@ server.on('message', (message, remote) => {
 
   // Broadcast the message to all connected clients
   io.emit('udp-message', message.toString());
-
-  // Send a response to the client
-  // const response = Buffer.from('Message received by server');
-  // server.send(response, 0, response.length, 7500, '127.0.0.1', (err) => {
-  //   if (err) {
-  //     console.error('Failed to send response:', err);
-  //   } else {
-  //     console.log('Response sent to client');
-  //   }
-  // });
 });
 
-server.bind(PORT, HOST);
+server.bind(LISTEN_PORT, HOST);
 
 io.on('connection', (socket) => {
   console.log('A client connected');
 
   function sendUDPMessage(message) {
     const buffer = Buffer.from(message);
-    server.send(buffer, 0, buffer.length, 7500, '127.0.0.1', (err) => {
+    server.send(buffer, 0, buffer.length, BROADCAST_PORT, ADDRESS, (err) => {
       if (err) {
         console.error('Failed to send message:', err);
       } else {
@@ -55,7 +48,7 @@ io.on('connection', (socket) => {
   function sendKeyUDPMessage(message) {
     const buffer = Buffer.from(message);
     Array.from({ length: 3 }, () => {
-      server.send(buffer, 0, buffer.length, 7500, '127.0.0.1', (err) => {
+      server.send(buffer, 0, buffer.length, BROADCAST_PORT, ADDRESS, (err) => {
         if (err) {
           console.error('Failed to send message:', err);
         } else {
