@@ -22,6 +22,12 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+/.vs
 
 brew_casks
 brew_formulae
+
+bun.lockb
+dockerfile
+
+

@@ -1,0 +1,93 @@
+.window {
+    display:flex;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    margin-bottom: 20px;
+
+}
+
+.playerDisplay {
+    display: grid;
+    
+    /* grid-template-areas:
+        'redPlayerName redPlayerName redPlayerName redPlayerName redPlayerScore redPlayerScore greenPlayerName greenPlayerName greenPlayerName greenPlayerName greenPlayerScore greenPlayerScore'
+        'redPlayerName redPlayerName redPlayerName redPlayerName redPlayerScore redPlayerScore greenPlayerName greenPlayerName greenPlayerName greenPlayerName greenPlayerScore greenPlayerScore'
+        'redPlayerName redPlayerName redPlayerName redPlayerName redPlayerScore redPlayerScore greenPlayerName greenPlayerName greenPlayerName greenPlayerName greenPlayerScore greenPlayerScore'
+        'redPlayerName redPlayerName redPlayerName redPlayerName redPlayerScore redPlayerScore greenPlayerName greenPlayerName greenPlayerName greenPlayerName greenPlayerScore greenPlayerScore'
+        'redPlayerName redPlayerName redPlayerName redPlayerName redPlayerScore redPlayerScore greenPlayerName greenPlayerName greenPlayerName greenPlayerName greenPlayerScore greenPlayerScore'; */
+   
+    grid-area: playerDisplay;
+    gap: 5px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    
+    
+}
+
+.redTeam {
+    background-color: red;
+    grid-area: redTeam;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    grid-column: span 6;
+    border-right: 5px solid black;
+    margin-right: 5px;
+}
+
+.greenTeam {
+    background-color: green;
+    grid-area: greenTeam;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    grid-column: span 6;
+    border-left: 5px solid black;
+}
+
+.redPlayerName {
+    background-color: red;
+    grid-area: redPlayerName;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    grid-column: span 4;
+    margin-right: 5px;
+
+
+}
+
+.redPlayerScore {
+    background-color: red;
+    grid-area: redPlayerScore;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    grid-column: span 2;
+
+   
+
+}
+
+.greenPlayerName {
+    background-color: green;
+    grid-area: greenPlayerName;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    grid-column: span 4;
+    margin-right:5px;
+
+
+}
+
+.greenPlayerScore {
+    grid-area: greenPlayerScore;
+    background-color: green;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    grid-column: span 2;
+
+}

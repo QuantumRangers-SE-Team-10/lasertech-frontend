@@ -1,24 +1,21 @@
-import query from "./query";
+// import query from "./query";
+import querySupabase from "./querySupabase";
+
 
 const route = "Game";
 
 const getGame = async (id: Number) => {
-  const response = await query(route, "get", id, []);
-  return response.data;
-  // console.log(response.data);
+  const response = await querySupabase(route, "get", id, []);
+  return response;
 };
 
 const getAllGames = async () => {
-  return await query(route, "get", null, []);
+    return await querySupabase(route, "get", null, []);
 };
 
 const addGame = async () => {
-  // const data = {
-  //   gameId: gameId,
-  //   playerSessions: playerSessions,
-  // };
-  const response = await query(route, "post", null, []);
-  return response.data;
+  const response = await querySupabase(route, "post", null, {});
+  return response;
 };
 
 const modifyGame = async (
@@ -29,11 +26,11 @@ const modifyGame = async (
     gameId: gameId,
     playerSessions: playerSessions,
   };
-  return await query(route, "put", null, data);
+  return await querySupabase(route, "put", null, data);
 };
 
 const deleteGame = async (gameId: Number) => {
-  return await query(route, "delete", gameId, []);
+  return await querySupabase(route, "delete", gameId, []);
 };
 
 export { getGame, getAllGames, addGame, modifyGame, deleteGame };
