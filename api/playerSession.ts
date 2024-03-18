@@ -1,5 +1,5 @@
 import query from "./query";
-import querySupabase from "../apiSupabase/querySupabase";
+import querySupabase from "./querySupabase";
 
 
 const route = "PlayerSession";

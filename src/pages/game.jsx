@@ -1,13 +1,13 @@
 import { useSearchParams } from "react-router-dom";
 import { useState, useMemo } from "react";
 
-import gameStyles from "../src/css/game.module.css";
+import gameStyles from "../css/game.module.css";
 
-import PlayerDisplay from "../src/components/playerDisplay.jsx";
+import PlayerDisplay from "../components/playerDisplay.jsx";
 // import PlayerAction from "../src/components/playerAction.jsx";
-import Countdown from "../src/components/countdown.jsx";
+import Countdown from "../components/countdown.jsx";
 
-import { getGame } from "../api/game";
+import { getGame } from "../../api/game";
 
 const Game = () => {
     const [game, setGame] = useState({});
