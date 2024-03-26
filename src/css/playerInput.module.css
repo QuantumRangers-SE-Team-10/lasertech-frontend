@@ -1,0 +1,44 @@
+.playerInput {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 10px;
+}
+  
+.playerInput input[type="number"] {
+    width: 170px;
+    margin-bottom: 3px;
+}
+  
+.playerInput input[type="text"] {
+    width: 200px;
+    margin-bottom: 10px;
+}
+  
+.magnifyIcon {
+    cursor: pointer;
+    margin-left: 5px;
+    padding: 2px;
+    background-color: #f9f9f9;
+    border-radius: 2px;
+}
+  
+.magnifyingGlassIcon {
+    width: 20px;
+    height: 20px;
+}
+  
+.buttonContainer {
+    display: grid;
+    grid: repeat(2, auto) / repeat(12, 1fr);
+    justify-content: center;
+    gap: 15px;
+}
+  
+.buttonContainer button {
+    color: #000;
+}
+  
+.addTeamButton {
+    grid-column: span 3;
+}

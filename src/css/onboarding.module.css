@@ -73,7 +73,7 @@ input[type="number"] {
   margin-bottom: 5px;
 }
 
-.playerInput {
+/* .playerInput {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -116,7 +116,7 @@ input[type="number"] {
 
 .addTeamButton {
   grid-column: span 3;
-}
+} */
 
 input {
   padding: 2px;

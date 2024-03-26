@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { addPlayer, getPlayer } from "../../api/player";
-import onboardingStyles from "/src/css/onboarding.module.css"; //will change to have separate css page for things only in this jsx
+import playerInputStyles from "/src/css/playerInput.module.css";
 
 const PlayerInput = (params) => {
     const [showCodeName, setShowCodeName] = useState(false);
@@ -86,7 +86,7 @@ const PlayerInput = (params) => {
     return(
         <div>
             <h3> Add Player</h3>
-            <div className={onboardingStyles.playerInput}>
+            <div className={playerInputStyles.playerInput}>
                 <input
                     type="number"
                     value={params.playerID}
@@ -100,7 +100,7 @@ const PlayerInput = (params) => {
                     placeholder="Player ID"
                 />
                 <span
-                    className={onboardingStyles.magnifyIcon}
+                    className={playerInputStyles.magnifyIcon}
                     onClick={() => {
                         fetchCodename(playerID);
                     }}
@@ -108,12 +108,12 @@ const PlayerInput = (params) => {
                     <img
                     src="/src/assets/Magnifying_glass_icon.svg"
                     alt="Search"
-                    className={onboardingStyles.magnifyingGlassIcon}
+                    className={playerInputStyles.magnifyingGlassIcon}
                     />
                 </span>
             </div>
             {params.playerID && showCodeName && (
-                <div className={onboardingStyles.playerInput}>
+                <div className={playerInputStyles.playerInput}>
                     <input
                         type="text"
                         value={params.codename}
@@ -127,10 +127,10 @@ const PlayerInput = (params) => {
                     />
                 </div>
             )}
-            <div className={onboardingStyles.buttonContainer}>
+            <div className={playerInputStyles.buttonContainer}>
                 <span style={{gridColumn: "span 3"}}></span>
                 <button
-                    className={onboardingStyles.addTeamButton}
+                    className={playerInputStyles.addTeamButton}
                     onClick={handleAddToRedTeam}
                     disabled={isAddButtonDisabled}
                     style={{
@@ -141,7 +141,7 @@ const PlayerInput = (params) => {
                     Add to Red Team
                 </button>
                 <button
-                    className={onboardingStyles.addTeamButton}
+                    className={playerInputStyles.addTeamButton}
                     onClick={handleAddToGreenTeam}
                     disabled={isAddButtonDisabled}
                     style={{
